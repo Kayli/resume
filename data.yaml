@@ -90,7 +90,7 @@ roles:
   - role: "Technical Lead, Application Architect"
     company: "Plenty Of Fish / Offeron Media Corp"
     dates: "Oct 2011 - May 2013"
-    location: "Greater Vancouver"
+    location: "Vancouver, BC"
     body: |
       - Managed system architecture, provided mentoring/hiring support, and enforced strict milestone management.
       - Promoted agile methodologies (XP, pair programming).
@@ -98,20 +98,10 @@ roles:
       - Re-engineered legacy Java applications.
       - Automated building/testing routines (CI).
 
-  - role: "Development Lead / Architect"
-    company: "MagMe Media Inc."
-    dates: "Jun 2011 - Sep 2011"
-    location: "Greater Vancouver"
-    body: |
-      - Migrated the application into Azure Cloud and established CI processes (SVN, CruiseControl, MSBuild).
-      - Enforced code/design best practices via code reviews and pair-programming.
-      - Organized the knowledge base and streamlined requirement gathering.
-      - Created technical documents and UML diagrams describing key architecture concepts.
-
   - role: "Senior .NET Developer / Architect"
     company: "Zefr-Media Inc"
     dates: "Sep 2008 - Apr 2011"
-    location: "N/A"
+    location: "Kharkiv, Ukraine; Vancouver, BC, Canada"
     body: |
       - Designed and implemented a Domain Specific Language (DSL) for rules generation for an online casino betslip validation.
       - Implemented the rules engine on the server (C#) and client (JS).
