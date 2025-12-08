@@ -6,15 +6,29 @@ import yaml
 
 class PDF(FPDF):
     def header(self):
+        # Render resume header (name/title and contact) if header_data is provided
+        # Only render on the first page
+        if getattr(self, 'page_no', lambda: 0)() > 1:
+            return
+        header = getattr(self, 'header_data', {}) or {}
+        title = header.get('title', '')
+        contact = header.get('contact', '')
+        if not title and not contact:
+            return
+        # Title
         self.set_font('Arial', 'B', 16)
-        title = 'Illia Karpenkov - Full-Stack Developer, Team Lead, Architect'
-        w = self.get_string_width(title) + 6
-        self.set_x((210 - w) / 2)
-        self.cell(w, 10, title, 0, 1, 'C')
-        self.set_font('Arial', '', 12)
-        self.cell(0, 6, "Email: illia.karpenkov@gmail.com | Mobile: +1 778.9177.256 | Vancouver, BC", 0, 1, 'C')
-        self.ln(10)
-
+        # move to top with a small margin
+        self.set_y(10)
+        self.cell(0, 8, safe_text(title), ln=1, align='C')
+        # Contact info
+        self.set_font('Arial', '', 10)
+        self.cell(0, 6, safe_text(contact), ln=1, align='C')
+        # Draw a separating line
+        self.ln(2)
+        self.set_draw_color(0, 0, 0)
+        self.set_line_width(0.3)
+        self.line(10, self.get_y(), 200, self.get_y())
+        self.ln(4)
     def get_lines_height(self, text_width, text, font_family, font_style, font_size, line_height):
         original_font = (self.font_family, self.font_style, self.font_size_pt)
         self.set_font(font_family, font_style, font_size)
@@ -61,11 +75,17 @@ class PDF(FPDF):
 
 # --- Resume Data ---
 here = os.path.dirname(__file__)
-yaml_path = os.path.join(here, 'jobs.yaml')
-json_path = os.path.join(here, 'jobs.json')
+yaml_path = os.path.join(here, 'data.yaml')
 if os.path.exists(yaml_path):
     with open(yaml_path, 'r', encoding='utf-8') as yf:
-        jobs = yaml.safe_load(yf)
+        data = yaml.safe_load(yf)
+        # support new format: mapping with header and roles
+        if isinstance(data, dict):
+            header = data.get('header', {})
+            roles = data.get('roles', [])
+        else:
+            header = {}
+            roles = data
 else:
     raise FileNotFoundError('jobs.yaml was found in the repository root.')
 
@@ -74,12 +94,16 @@ def safe_text(text):
 
 # Generate PDF
 pdf = PDF()
+pdf.header_data = header
 pdf.add_page()
 pdf.set_auto_page_break(auto=True, margin=15)
+for role in roles:
+    pdf.add_job_entry(
+        safe_text(role['role']), 
+        safe_text(role['company']), 
+        safe_text(role['dates']), 
+        safe_text(role['location']), 
+        safe_text(role['body']))
 
-for job in jobs:
-    clean_body = safe_text(job['body'])
-    pdf.add_job_entry(safe_text(job['role']), safe_text(job['company']), safe_text(job['dates']), safe_text(job['location']), clean_body)
-
-pdf.output("Resume3.pdf")
+pdf.output("Resume Illia Karpenkov.pdf")
 print("PDF generated successfully.")
