@@ -7,31 +7,31 @@ roles:
     company: "Large Canadian Retailer"
     dates: "2025 – Present"
     location: "Vancouver, BC (Hybrid)"
-    body: |
+    done: |
       - Leading a data engineering team responsible for the modernization of enterprise retail analytics platforms.
       - Currently designing and implementing a cloud-native ELT/ETL architecture across multiple business domains.
       - Mentoring team members on best practices for cloud development and Infrastructure as Code (IaC).
       - Established CI/CD pipelines to manage deployment across multiple environments.
-      Stack: AWS (AMI, S3), Python, Java, PostgreSQL, Databricks, Snowflake, Apache Airflow, Lenses/Kafka, Data Wrangler, Gitlab, Podman, k8s, VSCode, Github Copilot, WSL.
+    stack: "AWS (AMI, S3), Python, Java, PostgreSQL, Databricks, Snowflake, Apache Airflow, Lenses/Kafka, Data Wrangler, Gitlab, Podman, k8s, VSCode, Github Copilot, WSL."
 
   - role: "Senior Cloud Engineer"
     company: "Boeing (Contract)"
-    dates: "Oct 2023 - Present"
+    dates: "Oct 2023 - June 2024"
     location: "Vancouver, BC (Hybrid)"
-    body: |
+    done: |
       - Led data analytics pipeline reengineering efforts using Google Cloud Platform to modernize legacy systems.
       - Re-engineered flight data analytics pipelines, enabling real-time telemetry processing from ARINC 717/767 recorders.
       - Migrated legacy data ingestion pipelines to Databricks/Spark, improving data processing speeds by 4x and reducing infrastructure overhead.
       - Automated data collection, transformation, and storage workflows using Google Cloud Functions, Pub/Sub, and Datastore, reducing manual interventions by 80%.
       - Implemented Terraform-based IaC for automated infrastructure provisioning.
       - Optimized API-driven data ingestion using Flask and PostgreSQL.
-      Stack: Python, pytest, Flask, Swagger/OpenAPI, PostgreSQL, SQLAlchemy, Terraform, Spark, Databricks, Docker.
+    stack: "Python, pytest, Flask, Swagger/OpenAPI, PostgreSQL, SQLAlchemy, Terraform, Spark, Databricks, Docker."
 
-  - role: "Software Engineer"
+  - role: "Senior Software Engineer"
     company: "Microsoft (Contract)"
     dates: "Jan 2022 - Dec 2022"
     location: "Vancouver, BC"
-    body: |
+    done: |
       - Enhanced scalability, reliability, and deployment efficiency of an online community moderation platform processing 120 billion transactions per month.
       - Supported multi-cloud integration initiatives (AWS and Azure) to improve API latencies.
       - Refactored a monolithic Tornado/Angular application into scalable microservices on Azure AKS & AWS EKS.
@@ -40,118 +40,127 @@ roles:
       - Automated performance test scenarios and optimized CI/CD workflows, streamlining release cycles by introducing automated testing, feature flags, and canary deployments (Flagger), reducing deployment failures by 40%.
       - Developed ML-powered sentiment analysis services using fastText.
       - Reduced infrastructure costs by 25% by optimizing Kafka & Event Hubs.
-      Stack: AWS (EC2, S3, EKS, CloudWatch), Azure (DevOps, AKS, EventHubs), Python, Docker, Kubernetes, Terraform, Kafka.
+    stack: "AWS (EC2, S3, EKS, CloudWatch), Azure (DevOps, AKS, EventHubs), Python, Docker, Kubernetes, Terraform, Kafka."
 
-  - role: "Software Engineer"
+  - role: "Senior Software Engineer"
     company: "Freelance"
     dates: "Jan 2020 - Jan 2022"
     location: "Remote"
-    body: |
+    done: |
       - Implemented software for data collection, caching, and processing pipelines.
       - Implemented and experimented with Natural Language Processing (NLP) tools (OpenAI Whisper, NLTK, Spacy, LMStudio) to process proprietary data sets.
-      Stack: Python, SQLAlchemy, Pandas, Selenium, Jupyter, Matplotlib.
+    stack: "Python, SQLAlchemy, Pandas, Selenium, Jupyter, Matplotlib."
 
-  - role: "Lead System Engineer"
+  - role: "Lead Systems Engineer"
     company: "Ziva Dynamics"
     dates: "Jan 2018 - Jan 2020"
-    location: "Greater Vancouver"
-    body: |
+    location: "Vancouver, BC"
+    done: |
       - Engineered core systems for creating lifelike virtual characters with physics-abiding secondary dynamics.
       - Improved CI setup and simulation pipelines using Python, C++, CMake, and Jenkins.
       - Introduced AWS cloud services following 'infrastructure as code' (IaC) paradigm using Terraform.
       - Automated character simulation routines using SOLID and DDD principles.
       - Developed a Command Line Interface (CLI) driver to modernize and unify scattered rigging scripts.
-      - Implemented custom PID controllers for goal-reaching simulated virtual characters.
-      Stack: Python, C++, AWS, Terraform, Jenkins, Maya API.
+      - Implemented custom PID controllers logic for goal-reaching simulated virtual characters.
+    stack: "Python, C++, AWS, Terraform, Jenkins, Maya API."
 
   - role: "Team Lead"
     company: "Staples"
     dates: "Feb 2017 - Dec 2017"
-    location: "Greater Vancouver"
-    body: |
+    location: "Vancouver, BC"
+    done: |
       - Led a team of software engineers to redesign cart functionality, driving a revenue increase of $9 million.
       - Automated dev environment setup, streamlining the process.
       - Integrated automated UI tests into the CI/CD pipeline.
       - Contributed to the application architecture by encapsulating business functionality behind new APIs.
       - Implemented SSO using IdentityServer for simplified and secure Azure AD integration.
+    stack: ""
 
   - role: "Technical Lead, Solution Architect"
     company: "Asia Fusion Technology Ltd"
     dates: "May 2013 - Jan 2017"
     location: "Vancouver, BC"
-    body: |
+    done: |
       - Provided Solution Architecture design, technical mentoring, and process leadership for a development team of 7-15 engineers.
       - Architected and implemented a custom-tailored CMS solution.
       - Leveraged DDD, onion architecture, and event sourcing/CQRS for scalable system design.
       - Applied the SaaS model and utilized AWS hosting for scale.
       - Established an Agile iterative development environment.
       - Developed a domain-specific language (DSL) for a sportsbook rules engine.
+    stack: ""
 
   - role: "Technical Lead, Application Architect"
     company: "Plenty Of Fish / Offeron Media Corp"
     dates: "Oct 2011 - May 2013"
     location: "Vancouver, BC"
-    body: |
+    done: |
       - Managed system architecture, provided mentoring/hiring support, and enforced strict milestone management.
       - Promoted agile methodologies (XP, pair programming).
       - Implemented recursive MSSQL queries to navigate and analyze referral graphs.
       - Re-engineered legacy Java applications.
       - Automated building/testing routines (CI).
+    stack: ""
 
   - role: "Senior .NET Developer / Architect"
     company: "Zefr-Media Inc"
     dates: "Sep 2008 - Apr 2011"
     location: "Kharkiv, Ukraine; Vancouver, BC, Canada"
-    body: |
+    done: |
       - Designed and implemented a Domain Specific Language (DSL) for rules generation for an online casino betslip validation.
       - Implemented the rules engine on the server (C#) and client (JS).
       - Applied IoC techniques (Unity) and functional programming concepts (higher order functions, closures, lambda expressions).
+    stack: ""
 
   - role: "Senior .NET Developer"
     company: "TEAM International"
     dates: "Nov 2008 - Nov 2009"
-    location: "N/A"
-    body: |
+    location: "Kharkiv, Ukraine"
+    done: |
       - Managed Continuous Integration (CI) practices, configuration management, and core system design for various client projects.
       - Led the development of a web portal for managing short-term loan applications, leveraging ASP.NET MVC and jQuery for dynamic presentation, and ensuring scalability using Inversion of Control (IoC) containers for dependency management.
       - Utilized MS SQL Server for robust data persistence.
       - Drove successful project delivery, completing all functionality on time and within budget, which resulted in a contract extension for the client.
+    stack: ""
 
   - role: "Senior .NET Developer"
     company: "Zoral Labs"
     dates: "Oct 2007 - Nov 2008"
-    location: "N/A"
-    body: |
+    location: "Kharkiv, Ukraine"
+    done: |
       - Led refactoring, redesign, and application architecture efforts to improve system maintainability and performance.
       - Successfully worked as a member of a senior .NET team using Scrum/Agile iterative development.
       - Applied design patterns (like MVC and Factory) to introduce modularity during the refactoring process.
       - Improved code quality and reduced technical debt by enforcing best practices through code reviews and pair programming.
+    stack: ""
 
   - role: "Senior .NET / Python Developer"
     company: "oDesk Freelancer"
     dates: "2007 - 2008"
     location: "Remote"
-    body: |
+    done: |
       - Utilized Python and Amazon S3/EC2 cloud services for video processing techniques in an Agile environment.
       - Implemented media processing pipelines using FFmpeg for video transcoding, format conversion, and watermarking.
       - Gained hands-on experience with early cloud infrastructure and scripting.
+    stack: ""
 
   - role: ".NET Developer / Architect"
     company: "Alyuda Research"
     dates: "Jan 2004 - Oct 2006"
-    location: "N/A"
-    body: |
+    location: "Kharkiv, Ukraine"
+    done: |
       - Executed architectural design and implementation of a data-mining platform for banking scoring systems.
       - Allowed users to train, compose, and run ML models using user-friendly desktop and web interfaces.
       - Implemented data mining models including neural networks, logistic regression, and decision trees.
       - Leveraged IBM SPSS Modeler (Clementine) to construct and verify end-to-end data processing and machine learning pipelines.
+    stack: ""
 
   - role: "C++ Developer"
     company: "Altron"
     dates: "2003 - 2004"
-    location: "N/A"
-    body: |
+    location: "Kharkiv, Ukraine"
+    done: |
       - Supported and developed new functionalities for the MARS (Mobile Audio Registration System) project.
       - System was integrated into mobile carriers' hardware/software stack for national security.
       - Implemented automatic detection of control signals.
       - Applied debugging and production delivery standards.
+    stack: ""
