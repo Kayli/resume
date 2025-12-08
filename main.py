@@ -105,5 +105,5 @@ for role in roles:
         safe_text(role['location']), 
         safe_text(role['body']))
 
-pdf.output("Resume Illia Karpenkov.pdf")
+pdf.output("Resume-Illia-Karpenkov.pdf")
 print("PDF generated successfully.")

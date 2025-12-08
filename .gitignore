@@ -147,3 +147,6 @@ jobs.yaml
 
 # Keep package manager lockfile
 !Pipfile.lock
+
+# Ignore generated PDF resumes
+*.pdf
