@@ -62,44 +62,41 @@ roles:
       - Automated character simulation routines using SOLID and DDD principles.
       - Developed a Command Line Interface (CLI) driver to modernize and unify scattered rigging scripts.
       - Implemented custom PID controllers logic for goal-reaching simulated virtual characters.
-    stack: "Python, C++, AWS, Terraform, Jenkins, Maya API."
+    stack: "Python, C++, AWS, Terraform, Jenkins, Maya API, Linux"
 
   - role: "Team Lead"
     company: "Staples"
     dates: "Feb 2017 - Dec 2017"
     location: "Vancouver, BC"
     done: |
-      - Led a team of software engineers to redesign cart functionality, driving a revenue increase of $9 million.
-      - Automated dev environment setup, streamlining the process.
-      - Integrated automated UI tests into the CI/CD pipeline.
-      - Contributed to the application architecture by encapsulating business functionality behind new APIs.
-      - Implemented SSO using IdentityServer for simplified and secure Azure AD integration.
-    stack: ""
+      - Led redesign of the shopping cart (team lead & architect), delivering a new cart that reduced abandonment and drove $9M in incremental revenue.
+      - Architected and extended APIs to encapsulate business logic, improving scalability and integration with legacy systems.
+      - Automated developer environment provisioning and added automated UI tests to CI/CD, accelerating delivery and improving code quality.
+      - Implemented SSO via IdentityServer for Azure AD integration and secure authentication flows.
+    stack: ".NET 4.6, .NET Core 1.1, C#, ASP.NET, Entity Framework, MSSQL, Azure Cosmos DB, Azure AD, IdentityServer, Vue.js, Angular 2, jQuery, Optimizely"
 
   - role: "Technical Lead, Solution Architect"
     company: "Asia Fusion Technology Ltd"
     dates: "May 2013 - Jan 2017"
     location: "Vancouver, BC"
     done: |
-      - Provided Solution Architecture design, technical mentoring, and process leadership for a development team of 7-15 engineers.
-      - Architected and implemented a custom-tailored CMS solution.
-      - Leveraged DDD, onion architecture, and event sourcing/CQRS for scalable system design.
-      - Applied the SaaS model and utilized AWS hosting for scale.
-      - Established an Agile iterative development environment.
-      - Developed a domain-specific language (DSL) for a sportsbook rules engine.
-    stack: ""
+      - Applied modern approaches to design simple, flexible online casino gaming systems, prioritizing performance, scalability, and compliance.
+      - Designed and implemented a SaaS CRM and a sportsbook rules engine (DSL) for gaming platforms.
+      - Leveraged DDD, Onion Architecture, and Event Sourcing/CQRS to build scalable, testable systems for high-throughput gaming scenarios.
+      - Established Agile iterative development, mentored developers, and led technical delivery for a 7–15 person engineering team.
+      - Implemented TDD and integration testing practices, and built robust SOAP/REST integrations for third-party gaming services.
+      - Enabled support of localization/internationalization for gaming platforms.
+    stack: "C#, JavaScript, MSSQL, Unity3D, ASP.NET MVC, Entity Framework, SPA, jQuery, Bootstrap, KnockoutJS, DurandalJS, SignalR, Node.js, SOAP/REST Web Services, Swagger, TDD, Integration Testing, Moq, NUnit, Selenium WebDriver + Grid, SVN, Git, Visual Studio, CI, TeamCity, Cake, Fake, Gulp, RabbitMQ, Service Bus for Windows Server, SaaS, AWS, Azure, i18next"
 
   - role: "Technical Lead, Application Architect"
     company: "Plenty Of Fish / Offeron Media Corp"
     dates: "Oct 2011 - May 2013"
     location: "Vancouver, BC"
     done: |
-      - Managed system architecture, provided mentoring/hiring support, and enforced strict milestone management.
-      - Promoted agile methodologies (XP, pair programming).
-      - Implemented recursive MSSQL queries to navigate and analyze referral graphs.
-      - Re-engineered legacy Java applications.
-      - Automated building/testing routines (CI).
-    stack: ""
+      - Led system architecture and mentored developers; collaborated with executives and designers.
+      - Followed milestones, implemented business-critical features, automated CI/build and testing routines.
+      - Promoted agile practices (XP, pair programming) and conducted code reviews.
+    stack: ".NET 4.5, C#, MSSQL, Entity Framework, ASP.NET MVC, StructureMap, PayPal API, Neteller API"
 
   - role: "Senior .NET Developer / Architect"
     company: "Zefr-Media Inc"
@@ -109,29 +106,28 @@ roles:
       - Designed and implemented a Domain Specific Language (DSL) for rules generation for an online casino betslip validation.
       - Implemented the rules engine on the server (C#) and client (JS).
       - Applied IoC techniques (Unity) and functional programming concepts (higher order functions, closures, lambda expressions).
-    stack: ""
+    stack: "C#, JavaScript, MSSQL, ASP.NET MVC, Entity Framework, jQuery, json, ajax"
 
   - role: "Senior .NET Developer"
     company: "TEAM International"
     dates: "Nov 2008 - Nov 2009"
     location: "Kharkiv, Ukraine"
     done: |
+      - Led refactoring, redesign, and application architecture efforts to improve system maintainability and performance.
       - Managed Continuous Integration (CI) practices, configuration management, and core system design for various client projects.
-      - Led the development of a web portal for managing short-term loan applications, leveraging ASP.NET MVC and jQuery for dynamic presentation, and ensuring scalability using Inversion of Control (IoC) containers for dependency management.
-      - Utilized MS SQL Server for robust data persistence.
       - Drove successful project delivery, completing all functionality on time and within budget, which resulted in a contract extension for the client.
-    stack: ""
+    stack: "C# 3.0, JavaScript, Java SE 6, MSSQL, ASP.NET MVC, Entity Framework, jQuery"
 
   - role: "Senior .NET Developer"
     company: "Zoral Labs"
     dates: "Oct 2007 - Nov 2008"
     location: "Kharkiv, Ukraine"
     done: |
-      - Led refactoring, redesign, and application architecture efforts to improve system maintainability and performance.
+      - Led the development of a web portal for managing short-term loan applications, leveraging ASP.NET MVC and jQuery for dynamic presentation, and ensuring scalability using Inversion of Control (IoC) containers for dependency management.
       - Successfully worked as a member of a senior .NET team using Scrum/Agile iterative development.
       - Applied design patterns (like MVC and Factory) to introduce modularity during the refactoring process.
-      - Improved code quality and reduced technical debt by enforcing best practices through code reviews and pair programming.
-    stack: ""
+      - Improved code quality and reduced technical debt by adapting best practices through code reviews and pair programming.
+    stack: "C#, JavaScript, MSSQL, ASP.NET Webforms, jQuery"
 
   - role: "Senior .NET / Python Developer"
     company: "oDesk Freelancer"
@@ -141,7 +137,7 @@ roles:
       - Utilized Python and Amazon S3/EC2 cloud services for video processing techniques in an Agile environment.
       - Implemented media processing pipelines using FFmpeg for video transcoding, format conversion, and watermarking.
       - Gained hands-on experience with early cloud infrastructure and scripting.
-    stack: ""
+    stack: "Python, FFmpeg, AWS S3, AWS EC2, Bash, Linux"
 
   - role: ".NET Developer / Architect"
     company: "Alyuda Research"
@@ -152,7 +148,7 @@ roles:
       - Allowed users to train, compose, and run ML models using user-friendly desktop and web interfaces.
       - Implemented data mining models including neural networks, logistic regression, and decision trees.
       - Leveraged IBM SPSS Modeler (Clementine) to construct and verify end-to-end data processing and machine learning pipelines.
-    stack: ""
+    stack: "C#, Windows Forms, ASP.NET, Microsoft Access, IBM SPSS Modeler SDK"
 
   - role: "C++ Developer"
     company: "Altron"
@@ -163,4 +159,4 @@ roles:
       - System was integrated into mobile carriers' hardware/software stack for national security.
       - Implemented automatic detection of control signals.
       - Applied debugging and production delivery standards.
-    stack: ""
+    stack: "C++, Delphi, MFC, Windows API, ACE, Visual Studio"
