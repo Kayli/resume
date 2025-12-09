@@ -2,11 +2,12 @@ This project generates a PDF resume from structured YAML data (`data.yaml`).
 
 How to use
 
-1. Create a Python virtual environment and install dependencies (FPDF, PyYAML).
+1. Create a Python virtual environment and install dependencies. The required packages are listed in `requirements.txt`.
 
    python -m venv .venv
    source .venv/bin/activate
-   pip install fpdf pyyaml
+      # This project is tested on Python 3.9; see `pyproject.toml` for the required Python range.
+      pip install -r requirements.txt
 
 2. Run the generator:
 
