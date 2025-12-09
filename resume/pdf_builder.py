@@ -1,12 +1,12 @@
 from fpdf import FPDF
-from sanitizer import safe_text
+from .sanitizer import safe_text
+
+
 def render_header(pdf, header_data):
     """Render header on the current page (only call on first page)."""
-    # Only render header on the first page
     try:
         page_no = pdf.page_no()
     except Exception:
-        # FPDF may not have page_no yet; defensively assume first page
         page_no = 1
     if page_no > 1:
         return
@@ -98,7 +98,6 @@ def add_job_entry(pdf, header_data, role, company, dates, location, done, stack)
         pdf.set_font('Arial', 'I', 9)
         pdf.multi_cell(full_width, 5, safe_text(f"Stack: {stack}"))
     pdf.ln(gap_after)
-
 
 
 def build_pdf(output_path, data_map, max_roles=None):

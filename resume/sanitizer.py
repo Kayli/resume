@@ -7,7 +7,7 @@ def safe_text(text):
     if text is None:
         return ''
     s = str(text)
-    return s.replace("–", "-").replace("—", "-").replace("’", "'")
+    return s.replace("\u2013", "-").replace("\u2014", "-").replace("\u2019", "'")
 
 
 def sanitize_value(v):
