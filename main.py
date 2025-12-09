@@ -1,5 +1,4 @@
 from fpdf import FPDF
-import json
 import os
 
 import yaml

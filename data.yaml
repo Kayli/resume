@@ -25,7 +25,7 @@ roles:
       - Automated data collection, transformation, and storage workflows using Google Cloud Functions, Pub/Sub, and Datastore, reducing manual interventions by 80%.
       - Implemented Terraform-based IaC for automated infrastructure provisioning.
       - Optimized API-driven data ingestion using Flask and PostgreSQL.
-    stack: "Python, pytest, Flask, Swagger/OpenAPI, PostgreSQL, SQLAlchemy, Terraform, Spark, Databricks, Docker."
+    stack: "Python, Flask, Swagger/OpenAPI, PostgreSQL, SQLAlchemy, Terraform, Spark, Databricks, Docker."
 
   - role: "Senior Software Engineer"
     company: "Microsoft (Contract)"
