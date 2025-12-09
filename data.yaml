@@ -5,7 +5,8 @@ header:
 roles:
   - role: "Team / Tech Lead"
     company: "Large Canadian Retailer"
-    dates: "2025 – Present"
+    start: "2025-01"
+    end: null
     location: "Vancouver, BC (Hybrid)"
     done: |
       - Leading a data engineering team responsible for the modernization of enterprise retail analytics platforms.
@@ -16,7 +17,8 @@ roles:
 
   - role: "Senior Cloud Engineer"
     company: "Boeing (Contract)"
-    dates: "Oct 2023 - June 2024"
+    start: "2023-10"
+    end: "2024-06"
     location: "Vancouver, BC (Hybrid)"
     done: |
       - Led data analytics pipeline reengineering efforts using Google Cloud Platform to modernize legacy systems.
@@ -29,7 +31,8 @@ roles:
 
   - role: "Senior Software Engineer"
     company: "Microsoft (Contract)"
-    dates: "Jan 2022 - Dec 2022"
+    start: "2022-01"
+    end: "2022-12"
     location: "Vancouver, BC"
     done: |
       - Enhanced scalability, reliability, and deployment efficiency of an online community moderation platform processing 120 billion transactions per month.
@@ -44,7 +47,8 @@ roles:
 
   - role: "Senior Software Engineer"
     company: "Freelance"
-    dates: "Jan 2020 - Jan 2022"
+    start: "2020-01"
+    end: "2022-01"
     location: "Remote"
     done: |
       - Implemented software for data collection, caching, and processing pipelines.
@@ -53,7 +57,8 @@ roles:
 
   - role: "Lead Systems Engineer"
     company: "Ziva Dynamics"
-    dates: "Jan 2018 - Jan 2020"
+    start: "2018-01"
+    end: "2020-01"
     location: "Vancouver, BC"
     done: |
       - Engineered core systems for creating lifelike virtual characters with physics-abiding secondary dynamics.
@@ -66,7 +71,8 @@ roles:
 
   - role: "Team Lead"
     company: "Staples"
-    dates: "Feb 2017 - Dec 2017"
+    start: "2017-02"
+    end: "2017-12"
     location: "Vancouver, BC"
     done: |
       - Led redesign of the shopping cart (team lead & architect), delivering a new cart that reduced abandonment and drove $9M in incremental revenue.
@@ -77,7 +83,8 @@ roles:
 
   - role: "Technical Lead, Solution Architect"
     company: "Asia Fusion Technology Ltd"
-    dates: "May 2013 - Jan 2017"
+    start: "2013-05"
+    end: "2017-01"
     location: "Vancouver, BC"
     done: |
       - Applied modern approaches to design simple, flexible online casino gaming systems, prioritizing performance, scalability, and compliance.
@@ -90,7 +97,8 @@ roles:
 
   - role: "Technical Lead, Application Architect"
     company: "Plenty Of Fish / Offeron Media Corp"
-    dates: "Oct 2011 - May 2013"
+    start: "2011-10"
+    end: "2013-05"
     location: "Vancouver, BC"
     done: |
       - Led system architecture and mentored developers; collaborated with executives and designers.
@@ -100,7 +108,8 @@ roles:
 
   - role: "Senior .NET Developer / Architect"
     company: "Zefr-Media Inc"
-    dates: "Sep 2008 - Apr 2011"
+    start: "2008-09"
+    end: "2011-04"
     location: "Kharkiv, Ukraine; Vancouver, BC, Canada"
     done: |
       - Designed and implemented a Domain Specific Language (DSL) for rules generation for an online casino betslip validation.
@@ -110,7 +119,8 @@ roles:
 
   - role: "Senior .NET Developer"
     company: "TEAM International"
-    dates: "Nov 2008 - Nov 2009"
+    start: "2008-11"
+    end: "2009-11"
     location: "Kharkiv, Ukraine"
     done: |
       - Led refactoring, redesign, and application architecture efforts to improve system maintainability and performance.
@@ -120,7 +130,8 @@ roles:
 
   - role: "Senior .NET Developer"
     company: "Zoral Labs"
-    dates: "Oct 2007 - Nov 2008"
+    start: "2007-10"
+    end: "2008-11"
     location: "Kharkiv, Ukraine"
     done: |
       - Led the development of a web portal for managing short-term loan applications, leveraging ASP.NET MVC and jQuery for dynamic presentation, and ensuring scalability using Inversion of Control (IoC) containers for dependency management.
@@ -131,7 +142,8 @@ roles:
 
   - role: "Senior .NET / Python Developer"
     company: "oDesk Freelancer"
-    dates: "2007 - 2008"
+    start: "2007-01"
+    end: "2008-12"
     location: "Remote"
     done: |
       - Utilized Python and Amazon S3/EC2 cloud services for video processing techniques in an Agile environment.
@@ -141,7 +153,8 @@ roles:
 
   - role: ".NET Developer / Architect"
     company: "Alyuda Research"
-    dates: "Jan 2004 - Oct 2006"
+    start: "2004-01"
+    end: "2006-10"
     location: "Kharkiv, Ukraine"
     done: |
       - Executed architectural design and implementation of a data-mining platform for banking scoring systems.
@@ -152,7 +165,8 @@ roles:
 
   - role: "C++ Developer"
     company: "Altron"
-    dates: "2003 - 2004"
+    start: "2003-01"
+    end: "2004-12"
     location: "Kharkiv, Ukraine"
     done: |
       - Supported and developed new functionalities for the MARS (Mobile Audio Registration System) project.

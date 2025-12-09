@@ -130,10 +130,51 @@ def sanitize_data(data):
 
     sanitized['roles'] = []
     for r in (data.get('roles', []) or []):
+        # Prefer explicit start/end fields; fall back to legacy free-text 'dates'
+        start = r.get('start')
+        end = r.get('end')
+        legacy = r.get('dates')
+
+        disp = ''
+        if start or end:
+            # Normalize start/end to human readable form. Use YYYY-MM or YYYY where available.
+            def fmt(d):
+                if d is None:
+                    return None
+                s = str(d)
+                # If already in YYYY-MM or YYYY-MM-DD, try to format month name
+                parts = s.split('-')
+                if len(parts) >= 2:
+                    yyyy = parts[0]
+                    mm = parts[1]
+                    try:
+                        import calendar
+                        mname = calendar.month_abbr[int(mm)]
+                        return f"{mname} {yyyy}"
+                    except Exception:
+                        return s
+                # fallback: return raw
+                return s
+
+            s_s = fmt(start)
+            s_e = fmt(end) if end is not None else None
+            if s_s and s_e:
+                disp = f"{s_s} - {s_e}"
+            elif s_s and (s_e is None):
+                disp = f"{s_s} - Present"
+            elif s_s:
+                disp = s_s
+            else:
+                disp = ''
+        elif legacy:
+            disp = sanitize_value(legacy)
+
         sanitized['roles'].append({
             'role': sanitize_value(r.get('role')),
             'company': sanitize_value(r.get('company')),
-            'dates': sanitize_value(r.get('dates')),
+            'start': sanitize_value(start),
+            'end': sanitize_value(end),
+            'dates': sanitize_value(disp),
             'location': sanitize_value(r.get('location')),
             'done': sanitize_value(r.get('done')),
             'stack': sanitize_value(r.get('stack')),
