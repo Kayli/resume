@@ -2,3 +2,12 @@
 name = "resume-generator"
 version = "0.1.0"
 requires-python = ">=3.9,<3.10"
+
+[tool.mypy]
+python_version = "3.9"
+# Use a sensible default and incrementally adopt strictness per-module.
+ignore_missing_imports = false
+warn_unused_configs = true
+
+[tool.mypy-resume.repository]
+strict = true
