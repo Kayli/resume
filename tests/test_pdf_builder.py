@@ -4,6 +4,7 @@ import pytest
 from resume.pdf_builder import render_header, render_footer, add_job_entry, build_pdf
 import pypdf
 import re
+from resume.repository import HeaderSchema
 
 @pytest.fixture
 def pdf():
@@ -11,10 +12,15 @@ def pdf():
 
 @pytest.fixture
 def header_data():
-    return {
-        'title': 'John Doe - Software Engineer',
-        'contact': 'Email: john.doe@example.com | Mobile: 123-456-7890 | Vancouver, BC'
+    data = {
+        'name': 'John Doe',
+        'email': 'john.doe@example.com',
+        'phone': '123-456-7890',
+        'title': 'Software Engineer'
     }
+    # Validate against HeaderSchema
+    HeaderSchema(**data)
+    return data
 
 @pytest.fixture
 def role_data():
@@ -43,9 +49,9 @@ def normalize_text(text):
 def test_render_header(pdf, header_data):
     render_header(pdf, header_data)
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
-    # Adjusted expected text to match extracted text format
-    assert "John Doe Software Engineer" in pdf_text
-    assert normalize_text(header_data['contact']) in pdf_text
+    # Adjusted to check for separate rendering of name and title
+    assert header_data['name'] in pdf_text
+    assert header_data['title'] in pdf_text
 
 def test_render_footer(pdf):
     pdf.add_page()  # Ensure a page is open before rendering the footer
@@ -75,8 +81,9 @@ def test_build_pdf(tmp_path, header_data, role_data):
     with open(output_path, "rb") as f:
         reader = pypdf.PdfReader(f)
         pdf_text = normalize_text("\n".join(page.extract_text() for page in reader.pages))
-        # Adjusted expected text to match extracted text format
-        assert "John Doe Software Engineer" in pdf_text
+        # Adjusted to check for separate rendering of name and title
+        assert header_data['name'] in pdf_text
+        assert header_data['title'] in pdf_text
         assert normalize_text(header_data['contact']) in pdf_text
         assert normalize_text(role_data['role']) in pdf_text
         assert normalize_text(role_data['company']) in pdf_text

@@ -12,16 +12,18 @@ def render_header(pdf, header_data):
     if page_no > 1:
         return
 
+    name = header_data.get('name', '')
     title = header_data.get('title', '')
     contact = header_data.get('contact', '')
-    if not title and not contact:
-        return
-    name = title
-    tagline = ''
-    if ' - ' in title:
-        parts = title.split(' - ', 1)
-        name = parts[0].strip()
-        tagline = parts[1].strip()
+
+    tagline = ''  # Ensure tagline is always initialized
+    if not name and title:
+        if ' - ' in title:
+            parts = title.split(' - ', 1)
+            name = parts[0].strip()
+            tagline = parts[1].strip()
+        else:
+            name = title
 
     pdf.set_y(12)
     pdf.set_font('Arial', 'B', 18)
@@ -29,6 +31,9 @@ def render_header(pdf, header_data):
     if tagline:
         pdf.set_font('Arial', '', 11)
         pdf.cell(0, 6, safe_text(tagline), ln=1, align='C')
+    elif title and title != name:
+        pdf.set_font('Arial', '', 11)
+        pdf.cell(0, 6, safe_text(title), ln=1, align='C')
     if contact:
         pdf.set_font('Arial', '', 9)
         pdf.cell(0, 5, safe_text(contact), ln=1, align='C')
