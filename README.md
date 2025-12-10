@@ -2,16 +2,15 @@ This project generates a PDF resume from structured YAML data (`data.yaml`).
 
 How to use
 
-1. Create a Python virtual environment and install dependencies. The required packages are listed in `requirements.txt`.
+1. Set up the environment and install dependencies using doit. The `install` task will create a `.venv` and install packages from `requirements.txt`:
 
-   python -m venv .venv
-   source .venv/bin/activate
-      # This project is tested on Python 3.9; see `pyproject.toml` for the required Python range.
-      pip install -r requirements.txt
+   doit install
 
 2. Run the generator:
 
-   python main.py
+   .venv/bin/python main.py
+   or
+   doit generate
 
 Output
 
@@ -21,3 +20,10 @@ Notes
 
 - The generator uses the `data.yaml` file. Edit it to change header and roles.
 - The PDF renderer uses Latin-1 encoding; non-ASCII characters are sanitized in the header and body bullets are ASCII-friendly.
+
+Run tests and static checks
+
+- Run the full pipeline (mypy then pytest):
+
+   doit test
+

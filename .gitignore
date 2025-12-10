@@ -157,3 +157,6 @@ jobs.yaml
 
 # Ignore generated PDF resumes
 *.pdf
+
+# doit temporary data
+.doit.db.db

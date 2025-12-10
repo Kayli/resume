@@ -4,5 +4,12 @@
         "tests"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.DS_Store": true,
+        ".mypy_cache": true,
+        ".pytest_cache": true,
+        ".doit.db.db": true
+    }
 }
