@@ -2,7 +2,7 @@ import os
 from fpdf import FPDF
 import pytest
 from resume.pdf_builder import render_header, render_footer, add_job_entry, build_pdf
-import PyPDF2
+import pypdf
 import re
 
 @pytest.fixture
@@ -33,7 +33,7 @@ def extract_text_from_pdf(pdf):
     """Helper function to extract text from an FPDF object."""
     pdf.output("temp.pdf")
     with open("temp.pdf", "rb") as f:
-        reader = PyPDF2.PdfReader(f)
+        reader = pypdf.PdfReader(f)
         return "\n".join(page.extract_text() for page in reader.pages)
 
 def normalize_text(text):
@@ -73,7 +73,7 @@ def test_build_pdf(tmp_path, header_data, role_data):
 
     # Verify that header and role data are rendered in the PDF
     with open(output_path, "rb") as f:
-        reader = PyPDF2.PdfReader(f)
+        reader = pypdf.PdfReader(f)
         pdf_text = normalize_text("\n".join(page.extract_text() for page in reader.pages))
         # Adjusted expected text to match extracted text format
         assert "John Doe Software Engineer" in pdf_text
