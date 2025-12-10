@@ -3,6 +3,7 @@ from .sanitizer import safe_text
 
 
 def render_header(pdf, header_data):
+    ensure_page_open(pdf)
     """Render header on the current page (only call on first page)."""
     try:
         page_no = pdf.page_no()
@@ -49,6 +50,7 @@ def render_footer(pdf):
 
 
 def add_job_entry(pdf, header_data, role, company, employment, is_hybrid, dates, location, done, stack):
+    ensure_page_open(pdf)
     """Render a single job entry to the provided FPDF instance.
 
     If a page break is needed, render footer for current page, add a new page,
@@ -142,3 +144,9 @@ def build_pdf(output_path, data_map, max_roles=None):
     render_footer(pdf)
     pdf.output(output_path)
     print(f"PDF generated: {output_path}")
+
+
+def ensure_page_open(pdf):
+    """Ensure that a page is open in the PDF instance."""
+    if pdf.page_no() == 0:
+        pdf.add_page()
