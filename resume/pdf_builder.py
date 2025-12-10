@@ -1,10 +1,14 @@
 from fpdf import FPDF
 from .sanitizer import safe_text
+from resume.repository import ResumeSchema, RoleSchema
 
 
 def render_header(pdf, header_data):
     ensure_page_open(pdf)
-    """Render header on the current page (only call on first page)."""
+    """Render header on the current page (only call on first page).
+
+    header_data is expected to be a HeaderSchema instance (Pydantic model).
+    """
     try:
         page_no = pdf.page_no()
     except Exception:
@@ -12,9 +16,9 @@ def render_header(pdf, header_data):
     if page_no > 1:
         return
 
-    name = header_data.get('name', '')
-    title = header_data.get('title', '')
-    contact = header_data.get('contact', '')
+    name = getattr(header_data, 'name', '') or ''
+    title = getattr(header_data, 'title', '') or ''
+    contact = getattr(header_data, 'contact', '') if hasattr(header_data, 'contact') else ''
 
     tagline = ''  # Ensure tagline is always initialized
     if not name and title:
@@ -76,16 +80,30 @@ def add_job_entry(pdf, header_data, role, company, employment, is_hybrid, dates,
         render_header(pdf, header_data)
 
     pdf.set_font(*title_font)
-    pdf.cell(0, 6, f"{role}", 0, 0, 'L')
+    pdf.cell(0, 6, safe_text(role), 0, 0, 'L')
     pdf.set_font(*dates_font)
-    pdf.cell(-pdf.l_margin, 6, f"{dates}", 0, 1, 'R')
+    pdf.cell(-pdf.l_margin, 6, safe_text(dates), 0, 1, 'R')
 
     pdf.set_font(*sub_font)
-    location_details = f"{location} (Hybrid)" if is_hybrid else location
-    if employment == "contract":
-        location_details = f"{location_details} (Contract)" if location_details else "(Contract)"
+    base_location = (location or '').strip()
+    markers = []
+    if is_hybrid:
+        markers.append('Hybrid')
+    # employment may be an enum value
+    try:
+        emp_val = employment.value if hasattr(employment, 'value') else employment
+    except Exception:
+        emp_val = employment
+    if emp_val == 'contract' or emp_val == 'Contract':
+        markers.append('Contract')
+
+    if base_location:
+        location_details = f"{base_location} ({', '.join(markers)})" if markers else base_location
+    else:
+        location_details = f"({', '.join(markers)})" if markers else ''
+
     company_line = f"{company} - {location_details}" if location_details else company
-    pdf.cell(0, 6, company_line, 0, 1, 'L')
+    pdf.cell(0, 6, safe_text(company_line), 0, 1, 'L')
 
     pdf.set_font(*body_font)
     for paragraph in done.split('\n'):
@@ -117,33 +135,34 @@ def build_pdf(output_path, data_map, max_roles=None):
     - max_roles: if provided, only the first N roles are included (for one-page output).
     """
     pdf = FPDF()
-    header = data_map.get('header', {}) or {}
-    roles = (data_map.get('roles', []) or [])
+    # data_map is expected to be a ResumeSchema instance
+    header = getattr(data_map, 'header')
+    roles = list(getattr(data_map, 'roles') or [])
     if max_roles is not None:
         roles = roles[:max_roles]
 
-    # Dynamically generate the contact line
     contact_line = (
-        f"Email: {header.get('email', 'N/A')} | "
-        f"Mobile: {header.get('phone', 'N/A')} | "
+        f"Email: {getattr(header, 'email', 'N/A')} | "
+        f"Mobile: {getattr(header, 'phone', 'N/A')} | "
         f"Vancouver, BC"
     )
-    header['contact'] = contact_line
+    setattr(header, 'contact', contact_line)
 
     pdf.add_page()
     render_header(pdf, header)
     pdf.set_auto_page_break(True)
 
     for role in roles:
+        # role is a RoleSchema instance
         add_job_entry(pdf, header,
-                      role.get('role', ''),
-                      role.get('company', ''),
-                      role.get('employment', ''),
-                      role.get('is_hybrid', False),
-                      role.get('dates', ''),
-                      role.get('location', ''),
-                      role.get('done', ''),
-                      role.get('stack', ''))
+                      getattr(role, 'role', ''),
+                      getattr(role, 'company', ''),
+                      getattr(role, 'employment', ''),
+                      getattr(role, 'is_hybrid', False) if hasattr(role, 'is_hybrid') else False,
+                      getattr(role, 'dates', '') if hasattr(role, 'dates') else '',
+                      getattr(role, 'location', ''),
+                      getattr(role, 'done', ''),
+                      getattr(role, 'stack', ''))
 
     # render footer for the last page
     render_footer(pdf)

@@ -11,6 +11,7 @@ class HeaderSchema(BaseModel):
     email: str
     phone: str
     title: str
+    contact: Optional[str] = ''
 
 
 class EmploymentType(Enum):
@@ -28,6 +29,9 @@ class RoleSchema(BaseModel):
     employment: EmploymentType 
     done: str
     stack: str
+    # Optional flags and computed fields used by PDF renderer
+    is_hybrid: Optional[bool] = False
+    dates: Optional[str] = ''
 
 
 class ResumeSchema(BaseModel):
@@ -61,5 +65,5 @@ def load_data(path=None):
     if not isinstance(data, dict) or not data:
         raise ValueError('data.yaml is empty or malformed - expected a mapping with resume data')
 
-    # Validate data using ResumeSchema
-    return validate_data(data).dict()
+    # Validate data using ResumeSchema and return the DTO instance
+    return validate_data(data)
