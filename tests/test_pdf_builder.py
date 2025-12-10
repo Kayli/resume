@@ -43,11 +43,23 @@ def role_data():
     return data
 
 def extract_text_from_pdf(pdf):
-    """Helper function to extract text from an FPDF object."""
-    pdf.output("temp.pdf")
-    with open("temp.pdf", "rb") as f:
-        reader = pypdf.PdfReader(f)
-        return "\n".join(page.extract_text() for page in reader.pages)
+    """Helper function to extract text from an FPDF object using a system temp file."""
+    import tempfile
+    # Use a NamedTemporaryFile so the file is created in the system temp dir
+    # and is automatically removed on close. Set delete=False because
+    # pypdf opens the file independently on some platforms.
+    with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
+        tmp_path = tmp.name
+    try:
+        pdf.output(tmp_path)
+        with open(tmp_path, "rb") as f:
+            reader = pypdf.PdfReader(f)
+            return "\n".join(page.extract_text() for page in reader.pages)
+    finally:
+        try:
+            os.remove(tmp_path)
+        except Exception:
+            pass
 
 def normalize_text(text):
     """Normalize text by removing extra spaces and line breaks."""
