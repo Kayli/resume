@@ -105,7 +105,6 @@ dmypy.json
 .pyre/
 
 # IDEs and editors
-.vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
