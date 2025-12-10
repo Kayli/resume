@@ -1,6 +1,38 @@
 import os
 import yaml
 from pathlib import Path
+from pydantic import BaseModel, ValidationError
+from typing import Optional
+
+
+class HeaderSchema(BaseModel):
+    name: str
+    email: str
+    phone: str
+    title: str
+
+
+class RoleSchema(BaseModel):
+    role: str
+    company: str
+    start: str
+    end: Optional[str]
+    location: str
+    contract: Optional[bool] = None
+    done: str
+    stack: str
+
+
+class ResumeSchema(BaseModel):
+    header: HeaderSchema
+    roles: list[RoleSchema]
+
+
+def validate_data(data):
+    try:
+        return ResumeSchema(**data)
+    except ValidationError as e:
+        raise ValueError(f"Validation error: {e}")
 
 
 def load_data(path=None):
@@ -21,4 +53,6 @@ def load_data(path=None):
     # Ensure data is present and is a mapping; fail fast with a clear message.
     if not isinstance(data, dict) or not data:
         raise ValueError('data.yaml is empty or malformed - expected a mapping with resume data')
-    return data
+
+    # Validate data using ResumeSchema
+    return validate_data(data).dict()

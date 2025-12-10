@@ -112,6 +112,14 @@ def build_pdf(output_path, data_map, max_roles=None):
     if max_roles is not None:
         roles = roles[:max_roles]
 
+    # Dynamically generate the contact line
+    contact_line = (
+        f"Email: {header.get('email', 'N/A')} | "
+        f"Mobile: {header.get('phone', 'N/A')} | "
+        f"Vancouver, BC"
+    )
+    header['contact'] = contact_line
+
     pdf.add_page()
     render_header(pdf, header)
     pdf.set_auto_page_break(True)

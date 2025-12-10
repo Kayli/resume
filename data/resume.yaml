@@ -1,6 +1,10 @@
 header:
-  title: "Illia Karpenkov - Full-Stack Developer, Team Lead, Architect"
-  contact: "Email: illia.karpenkov@gmail.com | Mobile: +1 778.9177.256 | Vancouver, BC"
+  name: "Illia Karpenkov"
+  email: "illia.karpenkov@gmail.com"
+  phone: "+1 778.9177.256"
+  title: "Full-Stack Developer, Team Lead, Architect"
+  linkedin: "https://www.linkedin.com/in/illiakarpenkov/"
+
 
 roles:
   - role: "Team / Tech Lead"
