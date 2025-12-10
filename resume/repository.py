@@ -3,6 +3,7 @@ import yaml
 from pathlib import Path
 from pydantic import BaseModel, ValidationError
 from typing import Optional
+from enum import Enum
 
 
 class HeaderSchema(BaseModel):
@@ -12,13 +13,18 @@ class HeaderSchema(BaseModel):
     title: str
 
 
+class EmploymentType(Enum):
+    PERMANENT = "permanent"
+    CONTRACT = "contract"
+
+
 class RoleSchema(BaseModel):
     role: str
     company: str
     start: str
     end: Optional[str]
     location: str
-    contract: Optional[bool] = None
+    employment: EmploymentType 
     done: str
     stack: str
 

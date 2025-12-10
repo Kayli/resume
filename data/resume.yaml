@@ -8,10 +8,12 @@ header:
 
 roles:
   - role: "Team / Tech Lead"
+    employment: "permanent"
     company: "Large Canadian Retailer"
     start: "2025-01"
     end: null
-    location: "Vancouver, BC (Hybrid)"
+    location: "Vancouver, BC"
+    is_hybrid: true
     done: |
       - Leading a data engineering team responsible for the modernization of enterprise retail analytics platforms.
       - Currently designing and implementing a cloud-native ELT/ETL architecture across multiple business domains.
@@ -20,7 +22,8 @@ roles:
     stack: "AWS (AMI, S3), Python, Java, PostgreSQL, Databricks, Snowflake, Apache Airflow, Lenses/Kafka, Data Wrangler, Gitlab, Podman, k8s, VSCode, Github Copilot, WSL."
 
   - role: "Senior Cloud Engineer"
-    company: "Boeing (Contract)"
+    employment: "contract"
+    company: "Boeing"
     start: "2023-10"
     end: "2024-06"
     location: "Vancouver, BC (Hybrid)"
@@ -34,7 +37,8 @@ roles:
     stack: "Python, Flask, Swagger/OpenAPI, PostgreSQL, SQLAlchemy, Terraform, Spark, Databricks, Docker."
 
   - role: "Senior Software Engineer"
-    company: "Microsoft (Contract)"
+    employment: "contract"
+    company: "Microsoft"
     start: "2022-01"
     end: "2022-12"
     location: "Vancouver, BC"
@@ -50,6 +54,7 @@ roles:
     stack: "AWS (EC2, S3, EKS, CloudWatch), Azure (DevOps, AKS, EventHubs), Python, Docker, Kubernetes, Terraform, Kafka."
 
   - role: "Senior Software Engineer"
+    employment: "contract"
     company: "Freelance"
     start: "2020-01"
     end: "2022-01"
@@ -60,6 +65,7 @@ roles:
     stack: "Python, SQLAlchemy, Pandas, Selenium, Jupyter, Matplotlib."
 
   - role: "Lead Systems Engineer"
+    employment: "permanent"
     company: "Ziva Dynamics"
     start: "2018-01"
     end: "2020-01"
@@ -74,6 +80,7 @@ roles:
     stack: "Python, C++, AWS, Terraform, Jenkins, Maya API, Linux"
 
   - role: "Team Lead"
+    employment: "permanent"
     company: "Staples"
     start: "2017-02"
     end: "2017-12"
@@ -86,6 +93,7 @@ roles:
     stack: ".NET 4.6, .NET Core 1.1, C#, ASP.NET, Entity Framework, MSSQL, Azure Cosmos DB, Azure AD, IdentityServer, Vue.js, Angular 2, jQuery, Optimizely"
 
   - role: "Technical Lead, Solution Architect"
+    employment: "permanent"
     company: "Asia Fusion Technology Ltd"
     start: "2013-05"
     end: "2017-01"
@@ -100,6 +108,7 @@ roles:
     stack: "C#, JavaScript, MSSQL, Unity3D, ASP.NET MVC, Entity Framework, SPA, jQuery, Bootstrap, KnockoutJS, DurandalJS, SignalR, Node.js, SOAP/REST Web Services, Swagger, TDD, Integration Testing, Moq, NUnit, Selenium WebDriver + Grid, SVN, Git, Visual Studio, CI, TeamCity, Cake, Fake, Gulp, RabbitMQ, Service Bus for Windows Server, SaaS, AWS, Azure, i18next"
 
   - role: "Technical Lead, Application Architect"
+    employment: "permanent"
     company: "Plenty Of Fish / Offeron Media Corp"
     start: "2011-10"
     end: "2013-05"
@@ -111,6 +120,7 @@ roles:
     stack: ".NET 4.5, C#, MSSQL, Entity Framework, ASP.NET MVC, StructureMap, PayPal API, Neteller API"
 
   - role: "Senior .NET Developer / Architect"
+    employment: "permanent"
     company: "Zefr-Media Inc"
     start: "2008-09"
     end: "2011-04"
@@ -122,6 +132,7 @@ roles:
     stack: "C#, JavaScript, MSSQL, ASP.NET MVC, Entity Framework, jQuery, json, ajax"
 
   - role: "Senior .NET Developer"
+    employment: "permanent"
     company: "TEAM International"
     start: "2008-11"
     end: "2009-11"
@@ -133,6 +144,7 @@ roles:
     stack: "C# 3.0, JavaScript, Java SE 6, MSSQL, ASP.NET MVC, Entity Framework, jQuery"
 
   - role: "Senior .NET Developer"
+    employment: "permanent"
     company: "Zoral Labs"
     start: "2007-10"
     end: "2008-11"
@@ -145,6 +157,7 @@ roles:
     stack: "C#, JavaScript, MSSQL, ASP.NET Webforms, jQuery"
 
   - role: "Senior .NET / Python Developer"
+    employment: "contract"
     company: "oDesk Freelancer"
     start: "2007-01"
     end: "2008-12"
@@ -156,6 +169,7 @@ roles:
     stack: "Python, FFmpeg, AWS S3, AWS EC2, Bash, Linux"
 
   - role: ".NET Developer / Architect"
+    employment: "permanent"
     company: "Alyuda Research"
     start: "2004-01"
     end: "2006-10"
@@ -168,6 +182,7 @@ roles:
     stack: "C#, Windows Forms, ASP.NET, Microsoft Access, IBM SPSS Modeler SDK"
 
   - role: "C++ Developer"
+    employment: "permanent"
     company: "Altron"
     start: "2003-01"
     end: "2004-12"

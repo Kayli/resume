@@ -48,7 +48,7 @@ def render_footer(pdf):
     pdf.cell(0, 8, f'Page {pdf.page_no()}', 0, 0, 'C')
 
 
-def add_job_entry(pdf, header_data, role, company, dates, location, done, stack):
+def add_job_entry(pdf, header_data, role, company, employment, is_hybrid, dates, location, done, stack):
     """Render a single job entry to the provided FPDF instance.
 
     If a page break is needed, render footer for current page, add a new page,
@@ -74,7 +74,10 @@ def add_job_entry(pdf, header_data, role, company, dates, location, done, stack)
     pdf.cell(-pdf.l_margin, 6, f"{dates}", 0, 1, 'R')
 
     pdf.set_font(*sub_font)
-    company_line = f"{company} - {location}" if location else company
+    location_details = f"{location} (Hybrid)" if is_hybrid else location
+    if employment == "contract":
+        location_details = f"{location_details} (Contract)" if location_details else "(Contract)"
+    company_line = f"{company} - {location_details}" if location_details else company
     pdf.cell(0, 6, company_line, 0, 1, 'L')
 
     pdf.set_font(*body_font)
@@ -128,6 +131,8 @@ def build_pdf(output_path, data_map, max_roles=None):
         add_job_entry(pdf, header,
                       role.get('role', ''),
                       role.get('company', ''),
+                      role.get('employment', ''),
+                      role.get('is_hybrid', False),
                       role.get('dates', ''),
                       role.get('location', ''),
                       role.get('done', ''),
