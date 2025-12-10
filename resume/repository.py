@@ -1,7 +1,7 @@
 import os
 import yaml
 from pathlib import Path
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, ValidationError, Field
 from typing import Optional
 from enum import Enum
 
@@ -21,8 +21,9 @@ class EmploymentType(Enum):
 class RoleSchema(BaseModel):
     role: str
     company: str
-    start: str
-    end: Optional[str]
+    # start and end must be in YYYY-MM format (e.g., 2025-01)
+    start: str = Field(..., pattern=r"^\d{4}-(0[1-9]|1[0-2])$")
+    end: Optional[str] = Field(None, pattern=r"^\d{4}-(0[1-9]|1[0-2])$")
     location: str
     employment: EmploymentType 
     done: str

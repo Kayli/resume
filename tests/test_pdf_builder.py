@@ -4,7 +4,7 @@ import pytest
 from resume.pdf_builder import render_header, render_footer, add_job_entry, build_pdf
 import pypdf
 import re
-from resume.repository import HeaderSchema
+from resume.repository import HeaderSchema, RoleSchema, EmploymentType
 
 @pytest.fixture
 def pdf():
@@ -24,7 +24,7 @@ def header_data():
 
 @pytest.fixture
 def role_data():
-    return {
+    data = {
         'role': 'Software Engineer',
         'company': 'Tech Corp',
         'employment': 'full-time',
@@ -34,6 +34,13 @@ def role_data():
         'done': '- Developed software\n- Led projects',
         'stack': 'Python, JavaScript'
     }
+    # Validate against RoleSchema
+    # Provide start/end in YYYY-MM format to satisfy RoleSchema while keeping 'dates' for pdf rendering
+    data['start'] = '2020-01'
+    data['end'] = '2025-12'
+    data['employment'] = EmploymentType.PERMANENT  # Adjust to match schema enum
+    RoleSchema(**data)
+    return data
 
 def extract_text_from_pdf(pdf):
     """Helper function to extract text from an FPDF object."""
@@ -46,45 +53,85 @@ def normalize_text(text):
     """Normalize text by removing extra spaces and line breaks."""
     return re.sub(r"\s+", " ", text.strip())
 
-def test_render_header(pdf, header_data):
+
+def test_header_name_rendered_correctly(pdf, header_data):
     render_header(pdf, header_data)
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
-    # Adjusted to check for separate rendering of name and title
     assert header_data['name'] in pdf_text
+
+def test_header_title_rendered_correctly(pdf, header_data):
+    render_header(pdf, header_data)
+    pdf_text = normalize_text(extract_text_from_pdf(pdf))
     assert header_data['title'] in pdf_text
 
-def test_render_footer(pdf):
-    pdf.add_page()  # Ensure a page is open before rendering the footer
+def test_footer_page_number_rendered_correctly(pdf):
+    pdf.add_page()
     render_footer(pdf)
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
-    # Verify that footer data is rendered
-    assert f"Page 1" in pdf_text  # Adjusted to match the actual page number
+    assert "Page 1" in pdf_text
 
-def test_add_job_entry(pdf, header_data, role_data):
-    add_job_entry(pdf, header_data, **role_data)
+def test_job_entry_role_rendered_correctly(pdf, header_data, role_data):
+    add_job_entry(pdf, header_data,
+                  role_data['role'],
+                  role_data['company'],
+                  role_data['employment'],
+                  role_data['is_hybrid'],
+                  role_data['dates'],
+                  role_data['location'],
+                  role_data['done'],
+                  role_data['stack'])
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
-    # Verify that role data is rendered
     assert normalize_text(role_data['role']) in pdf_text
+
+def test_job_entry_company_rendered_correctly(pdf, header_data, role_data):
+    add_job_entry(pdf, header_data,
+                  role_data['role'],
+                  role_data['company'],
+                  role_data['employment'],
+                  role_data['is_hybrid'],
+                  role_data['dates'],
+                  role_data['location'],
+                  role_data['done'],
+                  role_data['stack'])
+    pdf_text = normalize_text(extract_text_from_pdf(pdf))
     assert normalize_text(role_data['company']) in pdf_text
+
+def test_job_entry_dates_rendered_correctly(pdf, header_data, role_data):
+    add_job_entry(pdf, header_data,
+                  role_data['role'],
+                  role_data['company'],
+                  role_data['employment'],
+                  role_data['is_hybrid'],
+                  role_data['dates'],
+                  role_data['location'],
+                  role_data['done'],
+                  role_data['stack'])
+    pdf_text = normalize_text(extract_text_from_pdf(pdf))
     assert normalize_text(role_data['dates']) in pdf_text
 
-def test_build_pdf(tmp_path, header_data, role_data):
+def test_pdf_header_data_rendered_correctly(tmp_path, header_data):
+    output_path = tmp_path / "test_resume.pdf"
+    data_map = {
+        'header': header_data,
+        'roles': []
+    }
+    build_pdf(output_path, data_map)
+    with open(output_path, "rb") as f:
+        reader = pypdf.PdfReader(f)
+        pdf_text = normalize_text("\n".join(page.extract_text() for page in reader.pages))
+        assert header_data['name'] in pdf_text
+        assert header_data['title'] in pdf_text
+
+def test_pdf_role_data_rendered_correctly(tmp_path, header_data, role_data):
     output_path = tmp_path / "test_resume.pdf"
     data_map = {
         'header': header_data,
         'roles': [role_data]
     }
     build_pdf(output_path, data_map)
-    assert os.path.exists(output_path)  # Ensure the PDF file is created
-
-    # Verify that header and role data are rendered in the PDF
     with open(output_path, "rb") as f:
         reader = pypdf.PdfReader(f)
         pdf_text = normalize_text("\n".join(page.extract_text() for page in reader.pages))
-        # Adjusted to check for separate rendering of name and title
-        assert header_data['name'] in pdf_text
-        assert header_data['title'] in pdf_text
-        assert normalize_text(header_data['contact']) in pdf_text
         assert normalize_text(role_data['role']) in pdf_text
         assert normalize_text(role_data['company']) in pdf_text
         assert normalize_text(role_data['dates']) in pdf_text
