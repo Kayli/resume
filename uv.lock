@@ -275,11 +275,15 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "fpdf" },
-    { name = "mypy" },
     { name = "pydantic" },
     { name = "pypdf" },
-    { name = "pytest" },
     { name = "pyyaml" },
+]
+
+[package.optional-dependencies]
+dev = [
+    { name = "mypy" },
+    { name = "pytest" },
     { name = "types-fpdf2" },
     { name = "types-pyyaml" },
 ]
@@ -287,14 +291,15 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "fpdf", specifier = ">=1.7.2,<2.0" },
-    { name = "mypy", specifier = ">=1.6,<2.0" },
+    { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.6,<2.0" },
     { name = "pydantic", specifier = ">=2.12,<3.0" },
     { name = "pypdf", specifier = ">=6.4,<7.0" },
-    { name = "pytest", specifier = ">=8.4,<9.0" },
+    { name = "pytest", marker = "extra == 'dev'", specifier = ">=8.4,<9.0" },
     { name = "pyyaml", specifier = ">=6.0,<7.0" },
-    { name = "types-fpdf2", specifier = ">=2.8,<3.0" },
-    { name = "types-pyyaml", specifier = ">=6.0,<7.0" },
+    { name = "types-fpdf2", marker = "extra == 'dev'", specifier = ">=2.8,<3.0" },
+    { name = "types-pyyaml", marker = "extra == 'dev'", specifier = ">=6.0,<7.0" },
 ]
+provides-extras = ["dev"]
 
 [[package]]
 name = "types-fpdf2"
