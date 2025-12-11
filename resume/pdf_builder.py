@@ -163,8 +163,8 @@ def add_job_entry(pdf: FPDF, header_data: HeaderSchema, role: RoleSchema):
         markers.append('Contract')
     if markers:
         location_parts.append(", ".join(markers))
-    location_text = ", ".join(location_parts) + " " if location_parts else ""
-    pdf.cell(0, 6, f"{role.company} | {location_text}", ln=1, align='L')
+    location_text = "(" + ", ".join(location_parts) + ")" if location_parts else ""
+    pdf.cell(0, 6, f"{role.company} {location_text}", ln=1, align='L')
 
     # --- Body / bullets ---
     pdf.set_font('Arial', '', 10)
