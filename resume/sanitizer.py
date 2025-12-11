@@ -39,73 +39,60 @@ def _fmt_date_for_display(d: Any):
     return s
 
 
-def sanitize_data(raw: Any):
-    """Return a `ResumeSchema` instance built from raw mapping `raw`.
+def sanitize_data(data: ResumeSchema) -> ResumeSchema:
+    """Return a sanitized ResumeSchema instance without converting to raw dict."""
 
-    This preserves the previous sanitization but returns typed models used by
-    the rest of the codebase.
-    """
-    # Accept either a raw mapping or a Pydantic ResumeSchema instance.
-    if hasattr(raw, 'model_dump'):
-        raw = raw.model_dump()
-
-    header_raw = (raw.get('header', {}) or {})
     header = HeaderSchema(
-        name=sanitize_value(header_raw.get('name')),
-        email=sanitize_value(header_raw.get('email')),
-        phone=sanitize_value(header_raw.get('phone')),
-        title=sanitize_value(header_raw.get('title')),
+        name=sanitize_value(data.header.name),
+        email=sanitize_value(data.header.email),
+        phone=sanitize_value(data.header.phone),
+        title=sanitize_value(data.header.title),
     )
 
-    roles = []
-    for r in (raw.get('roles', []) or []):
-        start = r.get('start')
-        end = r.get('end')
-        legacy = r.get('dates')
+    roles: list[RoleSchema] = []
 
+    for r in data.roles:
+        start = r.start
+        end = r.end
+        legacy = getattr(r, 'dates', None)
+
+        # Format display string
         disp = ''
         if start or end:
             s_s = _fmt_date_for_display(start)
-            s_e = _fmt_date_for_display(end) if end is not None else None
+            s_e = _fmt_date_for_display(end) if end else None
             if s_s and s_e:
                 disp = f"{s_s} - {s_e}"
-            elif s_s and (s_e is None):
+            elif s_s and s_e is None:
                 disp = f"{s_s} - Present"
             elif s_s:
                 disp = s_s
         elif legacy:
             disp = sanitize_value(legacy)
 
-        employment_val = r.get('employment')
-        if isinstance(employment_val, EmploymentType):
-            employment = employment_val
-        else:
-            try:
-                employment = EmploymentType(employment_val)
-            except Exception:
-                employment = EmploymentType.PERMANENT
+        # Employment type
+        employment = r.employment if isinstance(r.employment, EmploymentType) else EmploymentType.PERMANENT
 
-        # Preserve None for start/end if they are empty so validation rules
-        # on RoleSchema (pattern for YYYY-MM) are respected. Only sanitize
-        # non-empty string fields.
+        # Preserve None for empty strings
         def _maybe_sanitize_str(v) -> str | None:
-            return sanitize_value(v) if (v is not None and v != '') else None
+            return sanitize_value(v) if v not in (None, '') else None
 
         role = RoleSchema(
-            role=sanitize_value(r.get('role')),
-            company=sanitize_value(r.get('company')),
+            role=sanitize_value(r.role),
+            company=sanitize_value(r.company),
             start=sanitize_value(start),
             end=_maybe_sanitize_str(end),
-            location=sanitize_value(r.get('location')),
+            location=sanitize_value(r.location),
             employment=employment,
-            done=sanitize_value(r.get('done')),
-            stack=sanitize_value(r.get('stack')),
+            done=sanitize_value(r.done),
+            stack=sanitize_value(r.stack),
         )
-        # Keep a formatted dates string on the instance for PDF rendering
+
         setattr(role, 'dates', sanitize_value(disp))
-        # Preserve optional is_hybrid flag if present
-        if 'is_hybrid' in r:
-            setattr(role, 'is_hybrid', bool(r.get('is_hybrid')))
+
+        if hasattr(r, 'is_hybrid'):
+            setattr(role, 'is_hybrid', bool(r.is_hybrid))
+
         roles.append(role)
 
     return ResumeSchema(header=header, roles=roles)
