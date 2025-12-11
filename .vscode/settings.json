@@ -10,6 +10,8 @@
         "**/.DS_Store": true,
         ".mypy_cache": true,
         ".pytest_cache": true,
-        ".doit.db.db": true
-    }
+        ".doit.db.db": true,
+        "**/__pycache__": true
+    },
+    "chat.disableAIFeatures": true // disables vscode copilot features
 }
