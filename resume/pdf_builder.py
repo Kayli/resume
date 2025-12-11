@@ -86,7 +86,7 @@ def estimate_multicell_lines(pdf: FPDF, text: str, width: float):
             lines += 1
             continue
         words = paragraph.split(' ')
-        line_width = 0
+        line_width: float = 0
         for word in words:
             word_width = pdf.get_string_width(word + ' ')
             if line_width + word_width > width:
