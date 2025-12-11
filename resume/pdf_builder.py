@@ -65,7 +65,65 @@ def format_date(date_str):
     return dt.strftime("%b %Y")  # 'Oct 2023'
 
 
-def add_job_entry(
+def add_job_entry(pdf: FPDF, header_data: HeaderSchema, role: RoleSchema):
+    ensure_page_open(pdf)
+    full_width = pdf.w - pdf.l_margin - pdf.r_margin
+
+    # Title
+    pdf.set_font('Arial', 'B', 12)
+    title_text = safe_text(role.role)
+    pdf.cell(0, 6, title_text, ln=0, align='L')
+
+    # Dates on the right
+    pdf.set_font('Arial', '', 10)
+    start = format_date(role.start)
+    end = format_date(role.end) if role.end else "Present"
+    dates_text = f"{start} - {end}"
+    
+    # Move cursor to right margin minus text width
+    pdf.set_x(pdf.w - pdf.r_margin - pdf.get_string_width(dates_text))
+    pdf.cell(pdf.get_string_width(dates_text), 6, dates_text, ln=1, align='R')
+
+    # Company + location
+    pdf.set_font('Arial', 'I', 10)
+    location_parts = [role.location.strip()] if role.location else []
+    markers = []
+    if role.is_hybrid:
+        markers.append('Hybrid')
+    if role.employment == EmploymentType.CONTRACT:
+        markers.append('Contract')
+    if markers:
+        location_parts.append(", ".join(markers))
+    location_text = " (" + ", ".join(location_parts) + ")" if location_parts else ""
+    pdf.cell(0, 6, f"{role.company}{location_text}", ln=1, align='L')
+
+    # Body / bullets
+    pdf.set_font('Arial', '', 10)
+    full_width = pdf.w - pdf.l_margin - pdf.r_margin
+    for paragraph in role.done.split('\n'):
+        paragraph = paragraph.strip()
+        if not paragraph:
+            pdf.ln(2)
+            continue
+        if paragraph.startswith('-'):
+            content = paragraph.lstrip('-').strip()
+            indent = 6
+            bullet = '- '
+            pdf.set_x(pdf.l_margin + indent)
+            pdf.cell(6, 5, bullet, 0, 0)
+            pdf.multi_cell(full_width - indent - 6, 5, content)
+        else:
+            pdf.multi_cell(full_width, 5, paragraph)
+    pdf.ln(2)
+
+    # Stack
+    if role.stack:
+        pdf.set_font('Arial', 'I', 9)
+        pdf.multi_cell(full_width, 5, safe_text(f"Stack: {role.stack}"))
+    pdf.ln(6)
+    
+
+def add_job_entry2(
     pdf: FPDF,
     header_data: HeaderSchema,
     role: RoleSchema
