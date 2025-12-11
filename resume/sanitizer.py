@@ -4,10 +4,11 @@ This module converts raw mappings into typed DTOs (Pydantic models) while
 sanitizing strings for PDF rendering.
 """
 import calendar
+from typing import Any
 from resume.repository import HeaderSchema, RoleSchema, ResumeSchema, EmploymentType
 
 
-def safe_text(text):
+def safe_text(text: Any):
     # robust low-level replacer; accept non-str and None
     if text is None:
         return ''
@@ -15,14 +16,14 @@ def safe_text(text):
     return s.replace("\u2013", "-").replace("\u2014", "-").replace("\u2019", "'")
 
 
-def sanitize_value(v):
+def sanitize_value(v: Any):
     """Convert a value to a safe string suitable for PDF rendering."""
     if v is None:
         return ''
     return safe_text(v)
 
 
-def _fmt_date_for_display(d):
+def _fmt_date_for_display(d: Any):
     if d is None:
         return None
     s = str(d)
@@ -38,15 +39,15 @@ def _fmt_date_for_display(d):
     return s
 
 
-def sanitize_data(raw):
+def sanitize_data(raw: Any):
     """Return a `ResumeSchema` instance built from raw mapping `raw`.
 
     This preserves the previous sanitization but returns typed models used by
     the rest of the codebase.
     """
     # Accept either a raw mapping or a Pydantic ResumeSchema instance.
-    if hasattr(raw, 'dict'):
-        raw = raw.dict()
+    if hasattr(raw, 'model_dump'):
+        raw = raw.model_dump()
 
     header_raw = (raw.get('header', {}) or {})
     header = HeaderSchema(
@@ -87,7 +88,7 @@ def sanitize_data(raw):
         # Preserve None for start/end if they are empty so validation rules
         # on RoleSchema (pattern for YYYY-MM) are respected. Only sanitize
         # non-empty string fields.
-        def _maybe_sanitize_str(v):
+        def _maybe_sanitize_str(v) -> str:
             return sanitize_value(v) if (v is not None and v != '') else None
 
         role = RoleSchema(
