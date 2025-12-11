@@ -1,5 +1,6 @@
 from datetime import datetime
 from fpdf import FPDF
+from math import ceil
 from .sanitizer import safe_text
 from resume.repository import EmploymentType, ResumeSchema, RoleSchema, HeaderSchema
 
@@ -60,31 +61,102 @@ def render_footer(pdf: FPDF):
 def format_date(date_str):
     if not date_str:
         return ""
-    # Parse ISO-style date
-    dt = datetime.strptime(date_str, "%Y-%m")
-    return dt.strftime("%b %Y")  # 'Oct 2023'
+    for fmt in ("%Y-%m", "%Y-%m-%d", "%Y"):
+        try:
+            dt = datetime.strptime(date_str, fmt)
+            return dt.strftime("%b %Y")
+        except ValueError:
+            continue
+    return date_str  # fallback if unknown format
+
+
+def estimate_multicell_lines(pdf: FPDF, text: str, width: float):
+    """Estimate the number of lines a multicell will take."""
+    if not text:
+        return 0
+
+    # Ensure a font is set
+    if not pdf.font_family:
+        pdf.set_font('Arial', '', 10)
+
+    lines = 0
+    for paragraph in text.split('\n'):
+        paragraph = paragraph.strip()
+        if not paragraph:
+            lines += 1
+            continue
+        words = paragraph.split(' ')
+        line_width = 0
+        for word in words:
+            word_width = pdf.get_string_width(word + ' ')
+            if line_width + word_width > width:
+                lines += 1
+                line_width = word_width
+            else:
+                line_width += word_width
+        lines += 1
+    return lines
+
+
+def estimate_role_height(pdf: FPDF, role: RoleSchema):
+    """Estimate height needed to render a role entry."""
+    line_height = 5
+    full_width = pdf.w - pdf.l_margin - pdf.r_margin
+    height = 0
+
+    # Title + dates
+    height += 6
+
+    # Company + location
+    height += 6
+
+    # Body
+    for paragraph in role.done.split('\n'):
+        paragraph = paragraph.strip()
+        if not paragraph:
+            height += 2
+            continue
+        if paragraph.startswith('-'):
+            lines = estimate_multicell_lines(pdf, paragraph.lstrip('-').strip(), full_width - 6 - 6)
+            height += lines * line_height
+        else:
+            lines = estimate_multicell_lines(pdf, paragraph, full_width)
+            height += lines * line_height
+
+    # Stack
+    if role.stack:
+        height += line_height
+
+    # Gap after
+    height += 6
+    return height
 
 
 def add_job_entry(pdf: FPDF, header_data: HeaderSchema, role: RoleSchema):
     ensure_page_open(pdf)
     full_width = pdf.w - pdf.l_margin - pdf.r_margin
+    line_height = 5
 
-    # Title
+    # --- Check if enough space, else new page ---
+    needed_height = estimate_role_height(pdf, role)
+    if pdf.get_y() + needed_height > pdf.h - pdf.b_margin:
+        render_footer(pdf)
+        pdf.add_page()
+        render_header(pdf, header_data)
+
+    # --- Title and dates ---
     pdf.set_font('Arial', 'B', 12)
     title_text = safe_text(role.role)
     pdf.cell(0, 6, title_text, ln=0, align='L')
 
-    # Dates on the right
     pdf.set_font('Arial', '', 10)
     start = format_date(role.start)
     end = format_date(role.end) if role.end else "Present"
     dates_text = f"{start} - {end}"
-    
-    # Move cursor to right margin minus text width
     pdf.set_x(pdf.w - pdf.r_margin - pdf.get_string_width(dates_text))
     pdf.cell(pdf.get_string_width(dates_text), 6, dates_text, ln=1, align='R')
 
-    # Company + location
+    # --- Company + location ---
     pdf.set_font('Arial', 'I', 10)
     location_parts = [role.location.strip()] if role.location else []
     markers = []
@@ -97,9 +169,8 @@ def add_job_entry(pdf: FPDF, header_data: HeaderSchema, role: RoleSchema):
     location_text = " (" + ", ".join(location_parts) + ")" if location_parts else ""
     pdf.cell(0, 6, f"{role.company}{location_text}", ln=1, align='L')
 
-    # Body / bullets
+    # --- Body / bullets ---
     pdf.set_font('Arial', '', 10)
-    full_width = pdf.w - pdf.l_margin - pdf.r_margin
     for paragraph in role.done.split('\n'):
         paragraph = paragraph.strip()
         if not paragraph:
@@ -110,86 +181,17 @@ def add_job_entry(pdf: FPDF, header_data: HeaderSchema, role: RoleSchema):
             indent = 6
             bullet = '- '
             pdf.set_x(pdf.l_margin + indent)
-            pdf.cell(6, 5, bullet, 0, 0)
-            pdf.multi_cell(full_width - indent - 6, 5, content)
+            pdf.cell(6, line_height, bullet, 0, 0)
+            pdf.multi_cell(full_width - indent - 6, line_height, content)
         else:
-            pdf.multi_cell(full_width, 5, paragraph)
+            pdf.multi_cell(full_width, line_height, paragraph)
     pdf.ln(2)
 
-    # Stack
+    # --- Stack ---
     if role.stack:
         pdf.set_font('Arial', 'I', 9)
-        pdf.multi_cell(full_width, 5, safe_text(f"Stack: {role.stack}"))
+        pdf.multi_cell(full_width, line_height, safe_text(f"Stack: {role.stack}"))
     pdf.ln(6)
-    
-
-def add_job_entry2(
-    pdf: FPDF,
-    header_data: HeaderSchema,
-    role: RoleSchema
-):
-    ensure_page_open(pdf)
-    title_font = ('Arial', 'B', 12)
-    dates_font = ('Arial', '', 10)
-    sub_font = ('Arial', 'I', 10)
-    body_font = ('Arial', '', 10)
-    gap_after = 6
-    full_width = pdf.w - pdf.l_margin - pdf.r_margin
-
-    if pdf.get_y() > pdf.h - pdf.b_margin - 60:
-        render_footer(pdf)
-        pdf.add_page()
-        render_header(pdf, header_data)
-
-    pdf.set_font(*title_font)
-
-    pdf.cell(0, 6, safe_text(role.role), 0, 0, 'L')
-    pdf.set_font(*dates_font)
-    start = format_date(role.start)
-    end = format_date(role.end) if role.end else "Present"
-
-    dates = f"{start} - {end}"  # en-dash
-    pdf.set_font(*dates_font)
-    pdf.cell(-pdf.l_margin, 6, dates, 0, 1, 'R')
-    
-    pdf.set_font(*sub_font)
-    base_location = role.location.strip()
-    markers = []
-    if role.is_hybrid:
-        markers.append('Hybrid')
-    
-    if role.employment == EmploymentType.CONTRACT:
-        markers.append('Contract')
-
-    if base_location:
-        location_details = f"{base_location} ({', '.join(markers)})" if markers else base_location
-    else:
-        location_details = f"({', '.join(markers)})" if markers else ''
-
-    company_line = f"{role.company} - {location_details}" if location_details else role.company
-    pdf.cell(0, 6, safe_text(company_line), 0, 1, 'L')
-
-    pdf.set_font(*body_font)
-    for paragraph in role.done.split('\n'):
-        paragraph = paragraph.strip()
-        if not paragraph:
-            pdf.ln(2)
-            continue
-        if paragraph.startswith('-'):
-            content = paragraph.lstrip('-').strip()
-            indent = 6
-            bullet = '- '
-            pdf.set_x(pdf.l_margin + indent)
-            pdf.cell(6, 5, bullet, 0, 0)
-            pdf.multi_cell(full_width - indent - 6, 5, content)
-        else:
-            pdf.multi_cell(full_width, 5, paragraph)
-    pdf.ln(2)
-
-    if role.stack:
-        pdf.set_font('Arial', 'I', 9)
-        pdf.multi_cell(full_width, 5, safe_text(f"Stack: {role.stack}"))
-    pdf.ln(gap_after)
 
 
 def build_pdf(output_path: str, data_map: ResumeSchema, max_roles: int | None = None):
@@ -207,11 +209,7 @@ def build_pdf(output_path: str, data_map: ResumeSchema, max_roles: int | None = 
     pdf.set_auto_page_break(True)
 
     for role in roles:
-        add_job_entry(
-            pdf,
-            header,
-            role
-        )
+        add_job_entry(pdf, header, role)
 
     render_footer(pdf)
     pdf.output(output_path)
