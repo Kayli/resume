@@ -16,7 +16,7 @@ def safe_text(text: Any):
     return s.replace("\u2013", "-").replace("\u2014", "-").replace("\u2019", "'")
 
 
-def sanitize_value(v: Any):
+def sanitize_value(v: Any) -> str:
     """Convert a value to a safe string suitable for PDF rendering."""
     if v is None:
         return ''
@@ -88,13 +88,13 @@ def sanitize_data(raw: Any):
         # Preserve None for start/end if they are empty so validation rules
         # on RoleSchema (pattern for YYYY-MM) are respected. Only sanitize
         # non-empty string fields.
-        def _maybe_sanitize_str(v) -> str:
+        def _maybe_sanitize_str(v) -> str | None:
             return sanitize_value(v) if (v is not None and v != '') else None
 
         role = RoleSchema(
             role=sanitize_value(r.get('role')),
             company=sanitize_value(r.get('company')),
-            start=_maybe_sanitize_str(start),
+            start=sanitize_value(start),
             end=_maybe_sanitize_str(end),
             location=sanitize_value(r.get('location')),
             employment=employment,
