@@ -19,6 +19,11 @@ install:
         echo ".venv already installed, skipping"; \
     fi
 
+# Force installation even if already installed
+reinstall:
+    rm -rf .venv
+    just install
+
 # Run static type checks (mypy) and pytest
 test: install
     @echo "Running mypy on resume and tests..."
