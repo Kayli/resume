@@ -25,7 +25,6 @@ def role_data():
         role='Software Engineer',
         company='Tech Corp',
         employment=EmploymentType.PERMANENT,
-        is_hybrid=True,
         start='2020-01',
         end='2025-12',
         location='Vancouver, BC',

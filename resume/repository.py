@@ -29,8 +29,6 @@ class RoleSchema(BaseModel):
     employment: EmploymentType 
     done: str
     stack: str
-    # Optional flags and computed fields used by PDF renderer
-    is_hybrid: Optional[bool] = False
 
 
 class ResumeSchema(BaseModel):

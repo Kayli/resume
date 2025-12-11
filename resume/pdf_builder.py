@@ -1,6 +1,5 @@
 from datetime import datetime
 from fpdf import FPDF
-from math import ceil
 from .sanitizer import safe_text
 from resume.repository import EmploymentType, ResumeSchema, RoleSchema, HeaderSchema
 
@@ -160,14 +159,12 @@ def add_job_entry(pdf: FPDF, header_data: HeaderSchema, role: RoleSchema):
     pdf.set_font('Arial', 'I', 10)
     location_parts = [role.location.strip()] if role.location else []
     markers = []
-    if role.is_hybrid:
-        markers.append('Hybrid')
     if role.employment == EmploymentType.CONTRACT:
         markers.append('Contract')
     if markers:
         location_parts.append(", ".join(markers))
-    location_text = " (" + ", ".join(location_parts) + ")" if location_parts else ""
-    pdf.cell(0, 6, f"{role.company}{location_text}", ln=1, align='L')
+    location_text = ", ".join(location_parts) + " " if location_parts else ""
+    pdf.cell(0, 6, f"{role.company} | {location_text}", ln=1, align='L')
 
     # --- Body / bullets ---
     pdf.set_font('Arial', '', 10)

@@ -13,7 +13,6 @@ roles:
     start: "2025-01"
     end: null
     location: "Vancouver, BC"
-    is_hybrid: true
     done: |
       - Leading a data engineering team responsible for the modernization of enterprise retail analytics platforms.
       - Currently designing and implementing a cloud-native ELT/ETL architecture across multiple business domains.
@@ -26,7 +25,7 @@ roles:
     company: "Boeing"
     start: "2023-10"
     end: "2024-06"
-    location: "Vancouver, BC (Hybrid)"
+    location: "Vancouver, BC"
     done: |
       - Led data analytics pipeline reengineering efforts using Google Cloud Platform to modernize legacy systems.
       - Re-engineered flight data analytics pipelines, enabling real-time telemetry processing from ARINC 717/767 recorders.
