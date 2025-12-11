@@ -13,7 +13,7 @@ install:
         uv venv .venv; \
         .venv/bin/python -m ensurepip --upgrade; \
         .venv/bin/python -m pip install --upgrade pip; \
-        .venv/bin/pip3 install -r requirements.txt; \
+        uv sync; \
         touch .venv/.installed; \
     else \
         echo ".venv already installed, skipping"; \
