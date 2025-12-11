@@ -1,29 +1,43 @@
-This project generates a PDF resume from structured YAML data (`data.yaml`).
+# PDF Resume Generator
 
-How to use
+This project generates a PDF resume from structured YAML data.
 
-1. Set up the environment and install dependencies using doit. The `install` task will create a `.venv` and install packages from `requirements.txt`:
+## How to use
 
-   doit install
+### 1. Set up the environment and install dependencies
 
-2. Run the generator:
+The `install` task will create a `.venv`, install packages from `requirements.txt`, and mark the environment as installed:
 
-   .venv/bin/python main.py
-   or
-   doit generate
+just install
 
-Output
+- To force reinstallation (clean environment), run:
+
+just reinstall
+
+### 2. Run the generator
+
+just run
+
+or directly:
+
+.venv/bin/python main.py
+
+## Output
 
 - The script writes `Resume-Illia-Karpenkov.pdf` to the repository root.
 
-Notes
+## Notes
 
-- The generator uses the `data.yaml` file. Edit it to change header and roles.
-- The PDF renderer uses Latin-1 encoding; non-ASCII characters are sanitized in the header and body bullets are ASCII-friendly.
+- The generator uses `data.yaml` for header and role information. Edit this file to change the resume content.
+- The PDF renderer uses Latin-1 encoding; non-ASCII characters in the header are sanitized, and body bullets are ASCII-friendly.
 
-Run tests and static checks
+## Run tests and static checks
 
-- Run the full pipeline (mypy then pytest):
+- The `test` task runs mypy type checks and pytest:
 
-   doit test
+just test
 
+## Pending questions
+
+- Handling Pydantic internal exceptions during `BaseModel` definition  
+  See discussion: [pydantic/pydantic#12621](https://github.com/pydantic/pydantic/discussions/12621)

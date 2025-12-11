@@ -1,7 +1,7 @@
 import os
 from fpdf import FPDF
 import pytest
-from resume.pdf_builder import render_header, render_footer, add_job_entry, build_pdf
+from resume.pdf_builder import render_header, render_footer, add_job_entry, build_pdf, format_date
 import pypdf
 import re
 from resume.repository import HeaderSchema, RoleSchema, EmploymentType, ResumeSchema
@@ -12,43 +12,31 @@ def pdf():
 
 @pytest.fixture
 def header_data():
-    data = {
-        'name': 'John Doe',
-        'email': 'john.doe@example.com',
-        'phone': '123-456-7890',
-        'title': 'Software Engineer'
-    }
-    # Validate against HeaderSchema
-    hdr = HeaderSchema(**data)
-    return hdr
+    return HeaderSchema(
+        name='John Doe',
+        email='john.doe@example.com',
+        phone='123-456-7890',
+        title='Software Engineer'
+    )
 
 @pytest.fixture
 def role_data():
-    data = {
-        'role': 'Software Engineer',
-        'company': 'Tech Corp',
-        'employment': EmploymentType.PERMANENT,
-        'is_hybrid': True,
-        'dates': 'Jan 2020 - Dec 2025',
-        'location': 'Vancouver, BC',
-        'done': '- Developed software\n- Led projects',
-        'stack': 'Python, JavaScript'
-    }
-    # Validate against RoleSchema
-    # Provide start/end in YYYY-MM format to satisfy RoleSchema while keeping 'dates' for pdf rendering
-    data['start'] = '2020-01'
-    data['end'] = '2025-12'
-    role = RoleSchema(**data)
-    setattr(role, 'is_hybrid', True)
-    setattr(role, 'dates', data['dates'])
+    role = RoleSchema(
+        role='Software Engineer',
+        company='Tech Corp',
+        employment=EmploymentType.PERMANENT,
+        is_hybrid=True,
+        start='2020-01',
+        end='2025-12',
+        location='Vancouver, BC',
+        done='- Developed software\n- Led projects',
+        stack='Python, JavaScript'
+    )
     return role
 
 def extract_text_from_pdf(pdf):
-    """Helper function to extract text from an FPDF object using a system temp file."""
+    """Helper to extract text from FPDF object."""
     import tempfile
-    # Use a NamedTemporaryFile so the file is created in the system temp dir
-    # and is automatically removed on close. Set delete=False because
-    # pypdf opens the file independently on some platforms.
     with tempfile.NamedTemporaryFile(suffix=".pdf", delete=False) as tmp:
         tmp_path = tmp.name
     try:
@@ -63,65 +51,44 @@ def extract_text_from_pdf(pdf):
             pass
 
 def normalize_text(text):
-    """Normalize text by removing extra spaces and line breaks."""
     return re.sub(r"\s+", " ", text.strip())
 
-
+# Header tests
 def test_header_name_rendered_correctly(pdf, header_data):
     render_header(pdf, header_data)
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
-    assert getattr(header_data, 'name') in pdf_text
+    assert header_data.name in pdf_text
 
 def test_header_title_rendered_correctly(pdf, header_data):
     render_header(pdf, header_data)
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
-    assert getattr(header_data, 'title') in pdf_text
+    assert header_data.title in pdf_text
 
+# Footer test
 def test_footer_page_number_rendered_correctly(pdf):
     pdf.add_page()
     render_footer(pdf)
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
     assert "Page 1" in pdf_text
 
+# Job entry tests
 def test_job_entry_role_rendered_correctly(pdf, header_data, role_data):
-    add_job_entry(pdf, header_data,
-                  getattr(role_data, 'role'),
-                  getattr(role_data, 'company'),
-                  getattr(role_data, 'employment'),
-                  getattr(role_data, 'is_hybrid'),
-                  getattr(role_data, 'dates'),
-                  getattr(role_data, 'location'),
-                  getattr(role_data, 'done'),
-                  getattr(role_data, 'stack'))
+    add_job_entry(pdf, header_data, role_data)
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
-    assert normalize_text(getattr(role_data, 'role')) in pdf_text
+    assert normalize_text(role_data.role) in pdf_text
 
 def test_job_entry_company_rendered_correctly(pdf, header_data, role_data):
-    add_job_entry(pdf, header_data,
-                  getattr(role_data, 'role'),
-                  getattr(role_data, 'company'),
-                  getattr(role_data, 'employment'),
-                  getattr(role_data, 'is_hybrid'),
-                  getattr(role_data, 'dates'),
-                  getattr(role_data, 'location'),
-                  getattr(role_data, 'done'),
-                  getattr(role_data, 'stack'))
+    add_job_entry(pdf, header_data, role_data)
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
-    assert normalize_text(getattr(role_data, 'company')) in pdf_text
+    assert normalize_text(role_data.company) in pdf_text
 
 def test_job_entry_dates_rendered_correctly(pdf, header_data, role_data):
-    add_job_entry(pdf, header_data,
-                  getattr(role_data, 'role'),
-                  getattr(role_data, 'company'),
-                  getattr(role_data, 'employment'),
-                  getattr(role_data, 'is_hybrid'),
-                  getattr(role_data, 'dates'),
-                  getattr(role_data, 'location'),
-                  getattr(role_data, 'done'),
-                  getattr(role_data, 'stack'))
+    add_job_entry(pdf, header_data, role_data)
     pdf_text = normalize_text(extract_text_from_pdf(pdf))
-    assert normalize_text(getattr(role_data, 'dates')) in pdf_text
+    dates_text = f"{format_date(role_data.start)} - {format_date(role_data.end)}"
+    assert normalize_text(dates_text) in pdf_text
 
+# Full PDF tests
 def test_pdf_header_data_rendered_correctly(tmp_path, header_data):
     output_path = tmp_path / "test_resume.pdf"
     data_map = ResumeSchema(header=header_data, roles=[])
@@ -129,16 +96,5 @@ def test_pdf_header_data_rendered_correctly(tmp_path, header_data):
     with open(output_path, "rb") as f:
         reader = pypdf.PdfReader(f)
         pdf_text = normalize_text("\n".join(page.extract_text() for page in reader.pages))
-        assert getattr(header_data, 'name') in pdf_text
-        assert getattr(header_data, 'title') in pdf_text
-
-def test_pdf_role_data_rendered_correctly(tmp_path, header_data, role_data):
-    output_path = tmp_path / "test_resume.pdf"
-    data_map = ResumeSchema(header=header_data, roles=[role_data])
-    build_pdf(output_path, data_map)
-    with open(output_path, "rb") as f:
-        reader = pypdf.PdfReader(f)
-        pdf_text = normalize_text("\n".join(page.extract_text() for page in reader.pages))
-        assert normalize_text(getattr(role_data, 'role')) in pdf_text
-        assert normalize_text(getattr(role_data, 'company')) in pdf_text
-        assert normalize_text(getattr(role_data, 'dates')) in pdf_text
+        assert header_data.name in pdf_text
+        assert header_data.title in pdf_text

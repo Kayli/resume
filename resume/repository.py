@@ -31,7 +31,6 @@ class RoleSchema(BaseModel):
     stack: str
     # Optional flags and computed fields used by PDF renderer
     is_hybrid: Optional[bool] = False
-    dates: Optional[str] = ''
 
 
 class ResumeSchema(BaseModel):

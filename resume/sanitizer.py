@@ -88,11 +88,6 @@ def sanitize_data(data: ResumeSchema) -> ResumeSchema:
             stack=sanitize_value(r.stack),
         )
 
-        setattr(role, 'dates', sanitize_value(disp))
-
-        if hasattr(r, 'is_hybrid'):
-            setattr(role, 'is_hybrid', bool(r.is_hybrid))
-
         roles.append(role)
 
     return ResumeSchema(header=header, roles=roles)

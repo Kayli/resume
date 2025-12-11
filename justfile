@@ -3,7 +3,7 @@
 # default shell
 set shell := ["bash", "-ceu"]
 
-default: main
+default: run
 
 # Only run install if marker file doesn't exist
 install:
@@ -33,6 +33,6 @@ test: install
     .venv/bin/python -m pytest -q
 
 # Generate resume PDF
-main: install
+run: install
     @echo "Running main.py to generate resume PDF..."
     .venv/bin/python main.py
