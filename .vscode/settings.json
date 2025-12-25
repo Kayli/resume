@@ -13,5 +13,5 @@
         ".doit.db.db": true,
         "**/__pycache__": true
     },
-    "chat.disableAIFeatures": true // disables vscode copilot features
+    //"chat.disableAIFeatures": true // disables vscode copilot features
 }

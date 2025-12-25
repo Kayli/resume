@@ -2,7 +2,7 @@ header:
   name: "Illia Karpenkov"
   email: "illia.karpenkov@gmail.com"
   phone: "+1 778.9177.256"
-  title: "Full-Stack Developer, Team Lead, Architect"
+  title: "Full-Stack Developer & AI Enthusiast | Cloud & Data-Driven Systems"
   linkedin: "https://www.linkedin.com/in/illiakarpenkov/"
 
 
@@ -18,6 +18,7 @@ roles:
       - Currently designing and implementing a cloud-native ELT/ETL architecture across multiple business domains.
       - Mentoring team members on best practices for cloud development and Infrastructure as Code (IaC).
       - Established CI/CD pipelines to manage deployment across multiple environments.
+      - Evaluated AI-assisted tooling (GitHub Copilot, Windsurf) for analytics and automation.
     stack: "AWS (AMI, S3), Python, Java, PostgreSQL, Databricks, Snowflake, Apache Airflow, Lenses/Kafka, Data Wrangler, Gitlab, Podman, k8s, VSCode, Github Copilot, WSL."
 
   - role: "Senior Cloud Engineer"
@@ -33,6 +34,7 @@ roles:
       - Automated data collection, transformation, and storage workflows using Google Cloud Functions, Pub/Sub, and Datastore, reducing manual interventions by 80%.
       - Implemented Terraform-based IaC for automated infrastructure provisioning.
       - Optimized API-driven data ingestion using Flask and PostgreSQL.
+      - Explored AI/ML models for data-driven analytics pipelines.
     stack: "Python, Flask, Swagger/OpenAPI, PostgreSQL, SQLAlchemy, Terraform, Spark, Databricks, Docker."
 
   - role: "Senior Software Engineer"
@@ -46,9 +48,9 @@ roles:
       - Supported multi-cloud integration initiatives (AWS and Azure) to improve API latencies.
       - Refactored a monolithic Tornado/Angular application into scalable microservices on Azure AKS & AWS EKS.
       - Utilized Kafka and Event Hubs for asynchronous/parallel content processing.
-      - Contributed to the migration of CI/CD pipelines from GitLab to Azure DevOps.
-      - Automated performance test scenarios and optimized CI/CD workflows, streamlining release cycles by introducing automated testing, feature flags, and canary deployments (Flagger), reducing deployment failures by 40%.
+      - Contributed to CI/CD migration from GitLab to Azure DevOps.
       - Developed ML-powered sentiment analysis services using fastText.
+      - Leveraged ML-based content classification and summarization within moderation pipelines (fasttext).
       - Reduced infrastructure costs by 25% by optimizing Kafka & Event Hubs.
     stack: "AWS (EC2, S3, EKS, CloudWatch), Azure (DevOps, AKS, EventHubs), Python, Docker, Kubernetes, Terraform, Kafka."
 
@@ -60,8 +62,10 @@ roles:
     location: "Remote"
     done: |
       - Implemented software for data collection, caching, and processing pipelines.
-      - Implemented and experimented with Natural Language Processing (NLP) tools (OpenAI Whisper, NLTK, Spacy, LMStudio) to process proprietary data sets.
-    stack: "Python, SQLAlchemy, Pandas, Selenium, Jupyter, Matplotlib."
+      - Experimented with LLM and NLP frameworks (OpenAI Whisper, LMStudio, NLTK, Spacy) for text summarization and retrieval.
+      - Explored retrieval-augmented (RAG) approaches to improve query relevance.
+      - Leveraged AI-assisted coding tools (GitHub Copilot, Windsurf, Block Goose) to accelerate prototyping and development.
+    stack: "Python, SQLAlchemy, Pandas, Selenium, Jupyter, Matplotlib, LangChain (exploratory), FAISS"
 
   - role: "Lead Systems Engineer"
     employment: "permanent"
@@ -70,12 +74,12 @@ roles:
     end: "2020-01"
     location: "Vancouver, BC"
     done: |
-      - Engineered core systems for creating lifelike virtual characters with physics-abiding secondary dynamics.
-      - Improved CI setup and simulation pipelines using Python, C++, CMake, and Jenkins.
-      - Introduced AWS cloud services following 'infrastructure as code' (IaC) paradigm using Terraform.
+      - Built data-driven simulation pipelines using Radial Basis Functions (RBFs) as learned models to predict muscle and soft-tissue deformation from joint configurations.
+      - Designed modular simulation systems where multiple interconnected modules ("agents") coordinated character behavior and deformation.
+      - Improved CI/CD and simulation pipelines using Python, C++, CMake, and Jenkins.
+      - Introduced AWS cloud services with Terraform for scalable workloads.
       - Automated character simulation routines using SOLID and DDD principles.
-      - Developed a Command Line Interface (CLI) driver to modernize and unify scattered rigging scripts.
-      - Implemented custom PID controllers logic for goal-reaching simulated virtual characters.
+      - Developed a CLI driver to unify rigging scripts and implemented custom PID controllers for goal-directed simulated behaviors.
     stack: "Python, C++, AWS, Terraform, Jenkins, Maya API, Linux"
 
   - role: "Team Lead"
