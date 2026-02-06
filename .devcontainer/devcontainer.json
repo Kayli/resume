@@ -12,11 +12,8 @@
     "ghcr.io/devcontainers/features/git:1": {}
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
-  "remoteEnv": {
-    "SSH_AUTH_SOCK": "/tmp/ssh-auth.sock"
-  },
   "mounts": [
-    "type=bind,source=/run/host-services/ssh-auth.sock,target=/tmp/ssh-auth.sock"
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
   ],
   "customizations": {
     "vscode": {
