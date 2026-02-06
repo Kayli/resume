@@ -1,6 +1,9 @@
 # justfile
 
-# default shell
+# Set the default shell to bash with options:
+# -c: Execute the command string
+# -e: Exit immediately if a command exits with a non-zero status (error)
+# -u: Treat unset variables as an error and exit
 set shell := ["bash", "-ceu"]
 
 default: run
