@@ -31,3 +31,13 @@ test: install
 run: install
     @echo "Running main.py to generate resume PDF..."
     python main.py
+
+
+# Test that shell options (-ceu) are working
+test-shell:
+    @echo "Testing -u (error on unset variable)..."
+    @echo "Attempting to access: ${UNDEFINED_VAR}" && echo "FAIL: -u not working"
+    
+test-shell-e:
+    @echo "Testing -e (exit on error)..."
+    @false && echo "FAIL: -e not working"

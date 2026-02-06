@@ -11,7 +11,8 @@
         ".mypy_cache": true,
         ".pytest_cache": true,
         ".doit.db.db": true,
-        "**/__pycache__": true
+        "**/__pycache__": true,
+        "resume_generator.egg-info": true
     },
     //"chat.disableAIFeatures": true // disables vscode copilot features
 }
