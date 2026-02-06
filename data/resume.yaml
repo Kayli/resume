@@ -8,7 +8,7 @@ header:
 
 roles:
   - role: "Team / Tech Lead"
-    employment: "permanent"
+    employment: "contract"
     company: "Large Canadian Retailer"
     start: "2025-01"
     end: null
@@ -18,7 +18,8 @@ roles:
       - Currently designing and implementing a cloud-native ELT/ETL architecture across multiple business domains.
       - Mentoring team members on best practices for cloud development and Infrastructure as Code (IaC).
       - Established CI/CD pipelines to manage deployment across multiple environments.
-      - Evaluated AI-assisted tooling (GitHub Copilot, Windsurf) for analytics and automation.
+      - Evaluated AI-assisted tooling (Windsurf, GitHub Copilot, Goose OSS) for analytics and automation.
+      - Experimented with LLMs and RAG techniques to enhance data retrieval and analysis processes.
     stack: "AWS (AMI, S3), Python, Java, PostgreSQL, Databricks, Snowflake, Apache Airflow, Lenses/Kafka, Data Wrangler, Gitlab, Podman, k8s, VSCode, Github Copilot, WSL."
 
   - role: "Senior Cloud Engineer"
@@ -49,7 +50,6 @@ roles:
       - Refactored a monolithic Tornado/Angular application into scalable microservices on Azure AKS & AWS EKS.
       - Utilized Kafka and Event Hubs for asynchronous/parallel content processing.
       - Contributed to CI/CD migration from GitLab to Azure DevOps.
-      - Developed ML-powered sentiment analysis services using fastText.
       - Leveraged ML-based content classification and summarization within moderation pipelines (fasttext).
       - Reduced infrastructure costs by 25% by optimizing Kafka & Event Hubs.
     stack: "AWS (EC2, S3, EKS, CloudWatch), Azure (DevOps, AKS, EventHubs), Python, Docker, Kubernetes, Terraform, Kafka."
