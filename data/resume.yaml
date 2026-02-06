@@ -14,13 +14,14 @@ roles:
     end: null
     location: "Vancouver, BC"
     done: |
-      - Leading a data engineering team responsible for the modernization of enterprise retail analytics platforms.
-      - Currently designing and implementing a cloud-native ELT/ETL architecture across multiple business domains.
-      - Mentoring team members on best practices for cloud development and Infrastructure as Code (IaC).
-      - Established CI/CD pipelines to manage deployment across multiple environments.
-      - Evaluated AI-assisted tooling (Windsurf, GitHub Copilot, Goose OSS) for analytics and automation.
-      - Experimented with LLMs and RAG techniques to enhance data retrieval and analysis processes.
-    stack: "AWS (AMI, S3), Python, Java, PostgreSQL, Databricks, Snowflake, Apache Airflow, Lenses/Kafka, Data Wrangler, Gitlab, Podman, k8s, VSCode, Github Copilot, WSL."
+      - Leading data engineering team modernizing enterprise retail analytics platforms and AI-driven insights.
+      - Designing cloud-native ELT/ETL architecture with containerized microservices on Kubernetes.
+      - Experimented with LLMs and RAG techniques for intelligent business process automation.
+      - Integrated AI-assisted tooling (Windsurf, GitHub Copilot, Goose OSS) for accelerated development.
+      - Explored MLOps patterns and distributed orchestration for AI-driven processes at scale.
+      - Established CI/CD pipelines and GitOps practices, reducing deployment time by 50%.
+      - Mentoring team on cloud-native architecture, infrastructure as code, and AI integration.
+    stack: "Python, Java, PostgreSQL, Databricks, Snowflake, Apache Airflow, Lenses/Kafka, Kubernetes, Podman, Terraform, LangChain, Gitlab, VSCode, Github Copilot."
 
   - role: "Senior Cloud Engineer"
     employment: "contract"
@@ -46,13 +47,14 @@ roles:
     location: "Vancouver, BC"
     done: |
       - Enhanced scalability, reliability, and deployment efficiency of an online community moderation platform processing 120 billion transactions per month.
-      - Supported multi-cloud integration initiatives (AWS and Azure) to improve API latencies.
-      - Refactored a monolithic Tornado/Angular application into scalable microservices on Azure AKS & AWS EKS.
-      - Utilized Kafka and Event Hubs for asynchronous/parallel content processing.
-      - Contributed to CI/CD migration from GitLab to Azure DevOps.
-      - Leveraged ML-based content classification and summarization within moderation pipelines (fasttext).
-      - Reduced infrastructure costs by 25% by optimizing Kafka & Event Hubs.
-    stack: "AWS (EC2, S3, EKS, CloudWatch), Azure (DevOps, AKS, EventHubs), Python, Docker, Kubernetes, Terraform, Kafka."
+      - Led Azure-centric infrastructure modernization strategy, establishing cloud-native architecture patterns across containerized microservice ecosystems on Azure AKS.
+      - Refactored a monolithic Tornado/Angular application into scalable microservices on Azure AKS, implementing infrastructure-as-code governance with Terraform and GitOps deployment practices.
+      - Implemented comprehensive observability and monitoring standards using Azure Monitor, Application Insights, and Log Analytics for operational visibility and platform reliability.
+      - Established CI/CD platform modernization migrating from GitLab to Azure DevOps, implementing automated deployment pipelines and integrated container registries.
+      - Leveraged Azure Event Hubs and Kafka for asynchronous/parallel content processing and distributed orchestration across workloads.
+      - Designed security and governance frameworks within Azure, including RBAC policies, Azure Policy, and compliance controls.
+      - Reduced infrastructure costs by 25% through optimized resource allocation and Azure reserved instances.
+    stack: "Azure (AKS, DevOps, EventHubs, Monitor, Application Insights, Log Analytics, Policy, RBAC), Python, .NET 6, C#, Docker, Kubernetes, Prometheus, Terraform, Kafka."
 
   - role: "Senior Software Engineer"
     employment: "contract"
