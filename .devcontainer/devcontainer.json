@@ -28,7 +28,8 @@
       "extensions": [
         "ms-python.python",
         "ms-python.mypy-type-checker",
-        "GitHub.copilot-chat"
+        "GitHub.copilot-chat",
+        "skellock.just"
       ]
     }
   },
