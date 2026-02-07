@@ -1,6 +1,9 @@
 import { defineConfig, devices } from '@playwright/test'
 import { resolve } from 'path'
 
+// Ensure Playwright looks for browsers in the global image cache path when running tests
+process.env.PLAYWRIGHT_BROWSERS_PATH = process.env.PLAYWRIGHT_BROWSERS_PATH || '/ms-playwright'
+
 export default defineConfig({
   testDir: './tests',
   timeout: 30_000,

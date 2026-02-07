@@ -2,6 +2,6 @@
 set -e
 
 echo "Setting up environment..."
-just reinstall
+just install
 
 echo "Environment setup complete!"

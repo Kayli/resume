@@ -13,10 +13,7 @@ install:
     @echo "Installing project dependencies globally in the container..."
     python -m pip install --upgrade pip
     python -m pip install -e ".[dev]"
-    @echo "Installing backend (node) dependencies..."
-    cd web/backend && npm install
-    @echo "Installing frontend (node) dependencies..."
-    cd web/frontend && npm install && npx playwright install --with-deps || npx playwright install
+    @echo "Note: npm dependencies are cached in the Docker image"
 
 
 # Run static type checks (mypy) and pytest
