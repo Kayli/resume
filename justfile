@@ -32,12 +32,19 @@ run: install
     @echo "Running main.py to generate resume PDF..."
     python main.py
 
+
 # Check CI/CD status
 ci-status:
     @echo "Checking recent CI/CD runs..."
     gh run list --limit 5
 
-# Test that shell options (-ceu) are working
+# Trigger manual CI/CD build
+ci-trigger:
+    @echo "Triggering manual CI/CD build..."
+    gh workflow run CI
+
+
+# Test that shell options (-ceu) are working in justfile
 test-shell:
     @echo "Testing -u (error on unset variable)..."
     @echo "Attempting to access: ${UNDEFINED_VAR}" && echo "FAIL: -u not working"
