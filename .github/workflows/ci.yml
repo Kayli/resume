@@ -30,3 +30,9 @@ jobs:
       run: just test
     - name: Generate resume PDF
       run: just run
+    - name: Upload resume PDF
+      uses: actions/upload-artifact@v4
+      with:
+        name: resume-pdf
+        path: generated/*.pdf
+        retention-days: 30
