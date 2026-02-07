@@ -52,3 +52,4 @@ test-shell:
 test-shell-e:
     @echo "Testing -e (exit on error)..."
     @false && echo "FAIL: -e not working"
+
