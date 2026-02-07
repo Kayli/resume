@@ -13,11 +13,11 @@ install:
     @echo "Installing project dependencies globally in the container..."
     python -m pip install --upgrade pip
     python -m pip install -e ".[dev]"
+    @echo "Installing backend (node) dependencies..."
+    cd web/backend && npm install
+    @echo "Installing frontend (node) dependencies..."
+    cd web/frontend && npm install && npx playwright install --with-deps || npx playwright install
 
-# Force installation even if already installed
-reinstall:
-    python -m pip install --upgrade pip
-    python -m pip install -e ".[dev]" --upgrade
 
 # Run static type checks (mypy) and pytest
 test: install
@@ -26,11 +26,20 @@ test: install
     python -m mypy ./tests
     @echo "Running pytest..."
     python -m pytest -q
+    @echo "Running Playwright E2E tests..."
+    npm --prefix web/frontend run test:e2e
+
 
 # Generate resume PDF
 run: install
     @echo "Running main.py to generate resume PDF..."
     python main.py
+
+
+# Start frontend + backend dev servers (uses frontend's npm script which runs concurrently)
+dev:
+    @echo "Starting frontend + backend dev servers..."
+    cd web/frontend && npm run dev
 
 
 # Check CI/CD status

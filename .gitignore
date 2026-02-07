@@ -137,6 +137,25 @@ Icon
 node_modules/
 
 # Logs
+
+# Local dev files
+dev.pid
+dev.log
+*.log
+test-results/
+
+# Node and build artifacts inside web/
+web/**/node_modules
+web/**/dist
+
+# lockfiles (if you prefer not to track them)
+package-lock.json
+web/frontend/package-lock.json
+web/backend/package-lock.json
+
+# IDE
+.vscode/
+.idea/
 logs/
 *.log
 npm-debug.log*
