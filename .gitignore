@@ -160,3 +160,11 @@ jobs.yaml
 
 # doit temporary data
 .doit.db.db
+
+# Web interface
+web/backend/node_modules/
+web/backend/dist/
+web/frontend/node_modules/
+web/frontend/dist/
+web/frontend/dev.log
+web/frontend/dev.pid
