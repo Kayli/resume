@@ -18,3 +18,19 @@ RUN mkdir -p /ms-playwright \
     && chmod -R a+rX /ms-playwright
 
 RUN sudo npx playwright install-deps
+
+# Install additional packages required for Cloud SDK, then install Cloud SDK
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl apt-transport-https ca-certificates gnupg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN set -eux \
+    && mkdir -p /usr/share/keyrings \
+    && curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg \
+        | gpg --dearmor -o /usr/share/keyrings/cloud.google.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" \
+        > /etc/apt/sources.list.d/google-cloud-sdk.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends google-cloud-sdk \
+    && rm -rf /var/lib/apt/lists/*
