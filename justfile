@@ -37,6 +37,12 @@ ci-status:
     @echo "Checking recent CI/CD runs..."
     gh run list --limit 5
 
+# Run web server
+serve: install
+    @echo "Starting web server..."
+    python -m pip install -e ".[web]" -q
+    python web/app.py
+
 # Test that shell options (-ceu) are working
 test-shell:
     @echo "Testing -u (error on unset variable)..."

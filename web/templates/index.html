@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ header.name }} - Resume</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #222; }
+        header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 12px; margin-bottom: 24px; }
+        header h1 { margin: 0 0 4px; font-size: 2em; }
+        header p { margin: 2px 0; font-size: 0.95em; color: #555; }
+        .download { display: inline-block; margin-top: 10px; padding: 8px 18px; background: #0066cc; color: #fff; text-decoration: none; border-radius: 4px; font-size: 0.9em; }
+        .download:hover { background: #004fa3; }
+        .role { margin-bottom: 24px; }
+        .role-header { display: flex; justify-content: space-between; align-items: baseline; }
+        .role-title { font-size: 1.1em; font-weight: bold; }
+        .role-dates { font-size: 0.9em; color: #555; }
+        .role-company { font-style: italic; margin-bottom: 6px; color: #444; }
+        .role-done { margin: 4px 0; line-height: 1.5; white-space: pre-wrap; }
+        .role-stack { font-size: 0.85em; font-style: italic; color: #555; margin-top: 4px; }
+        h2 { font-size: 1.2em; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-top: 32px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ header.name }}</h1>
+        <p>{{ header.title }}</p>
+        <p>{{ header.email }} | {{ header.phone }}</p>
+        <a class="download" href="/download">Download PDF</a>
+    </header>
+
+    <h2>Experience</h2>
+    {% for role in roles %}
+    <div class="role">
+        <div class="role-header">
+            <span class="role-title">{{ role.role }}</span>
+            <span class="role-dates">
+                {{ role.start }}{% if role.end %} – {{ role.end }}{% else %} – Present{% endif %}
+            </span>
+        </div>
+        <div class="role-company">{{ role.company }}{% if role.location %} · {{ role.location }}{% endif %}</div>
+        <div class="role-done">{{ role.done }}</div>
+        {% if role.stack %}<div class="role-stack">Stack: {{ role.stack }}</div>{% endif %}
+    </div>
+    {% endfor %}
+</body>
+</html>
