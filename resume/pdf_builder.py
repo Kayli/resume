@@ -5,8 +5,8 @@ from resume.repository import EmploymentType, ResumeSchema, RoleSchema, HeaderSc
 
 
 def render_header(pdf: FPDF, header_data: HeaderSchema):
-    ensure_page_open(pdf)
     """Render header on the current page (only call on first page)."""
+    ensure_page_open(pdf)
 
     page_no = pdf.page_no() or 1
     if page_no > 1:
