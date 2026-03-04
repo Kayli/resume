@@ -13,10 +13,7 @@
       "installZsh": true,
       "upgradePackages": true
     },
-    "ghcr.io/devcontainers/features/git:1": {},
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "lts"
-    }
+    "ghcr.io/devcontainers/features/git:1": {}
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "mounts": [
