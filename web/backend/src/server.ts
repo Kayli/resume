@@ -43,7 +43,7 @@ const start = async () => {
     // return index.html so client-side routing works.
     fastify.setNotFoundHandler(async (request, reply) => {
       // If the path looks like an API route, return 404 JSON
-      if (request.raw.url && request.raw.url.startsWith('/api/')) {
+      if (request.url && request.url.startsWith('/api/')) {
         reply.code(404).send({ error: 'Not found' })
         return
       }
