@@ -150,7 +150,7 @@ web/**/node_modules
 web/**/dist
 
 # lockfiles (if you prefer not to track them)
-package-lock.json
+# (root package-lock.json is tracked in this repo)
 web/frontend/package-lock.json
 web/backend/package-lock.json
 
