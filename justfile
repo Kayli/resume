@@ -16,14 +16,16 @@ install:
     @echo "Note: npm dependencies are cached in the Docker image"
 
 
-# Run static type checks (mypy) and pytest
-test: install
+# Run both core and e2e tests
+test: test-core test-e2e
+
+# Run core Python tests (mypy + pytest)
+test-core: install
     @echo "Running mypy on resume and tests..."
     python -m mypy ./resume
     python -m mypy ./tests
     @echo "Running pytest..."
     python -m pytest -q
-
 
 # Run Playwright E2E tests (requires Node deps and a running-capable environment)
 test-e2e:
