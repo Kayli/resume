@@ -23,6 +23,10 @@ test: install
     python -m mypy ./tests
     @echo "Running pytest..."
     python -m pytest -q
+
+
+# Run Playwright E2E tests (requires Node deps and a running-capable environment)
+test-e2e:
     @echo "Running Playwright E2E tests..."
     npm --prefix web/frontend run test:e2e
 
