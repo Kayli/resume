@@ -13,15 +13,22 @@ const start = async () => {
   try {
     await fastify.register(cors, { origin: true })
 
-    // Serve built frontend static files if present.
-    // Frontend build output is at web/frontend/dist relative to project root.
+    // Serve built frontend static files if present. Frontend build output
+    // is at web/frontend/dist relative to project root. In dev mode the
+    // Vite dev server serves assets, so skip registering static files
+    // when the `dist` directory doesn't exist to avoid startup failure.
     const frontendDist = path.resolve(__dirname, '../../..', 'web', 'frontend', 'dist')
-    // Register static plugin (no index auto-serve so we can implement SPA fallback)
-    await fastify.register(fastifyStatic, {
-      root: frontendDist,
-      prefix: '/',
-      index: false
-    })
+    try {
+      await fs.access(frontendDist)
+      await fastify.register(fastifyStatic, {
+        root: frontendDist,
+        prefix: '/',
+        index: false
+      })
+      fastify.log.info(`Serving frontend static files from ${frontendDist}`)
+    } catch (err) {
+      fastify.log.info(`Frontend dist not found at ${frontendDist}, skipping static registration`)
+    }
 
     fastify.get('/api/hello', async (request, reply) => {
       return { message: 'Hello from Fastify' }

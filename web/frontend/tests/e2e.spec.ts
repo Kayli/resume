@@ -7,7 +7,8 @@ test('homepage shows resume header', async ({ page }) => {
 
 
 test('backend /api/resume returns resume JSON', async ({ request }) => {
-  const res = await request.get('http://localhost:5000/api/resume')
+  const port = process.env.PORT_BACKEND ?? '5000'
+  const res = await request.get(`http://127.0.0.1:${port}/api/resume`)
   expect(res.ok()).toBeTruthy()
   const json = await res.json()
   expect(json).toHaveProperty('header')
