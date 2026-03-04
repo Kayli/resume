@@ -13,23 +13,37 @@ install:
     @echo "Installing project dependencies globally in the container..."
     python -m pip install --upgrade pip
     python -m pip install -e ".[dev]"
-    @echo "Dependencies installed."
+    @echo "Note: npm dependencies are cached in the Docker image"
 
 
-# Run static type checks (mypy) and pytest
-test: install
+# Run both core and e2e tests
+test: test-core test-e2e
+
+# Run core Python tests (mypy + pytest)
+test-core: install
     @echo "Running mypy on resume and tests..."
     python -m mypy ./resume
     python -m mypy ./tests
     @echo "Running pytest..."
     python -m pytest -q
 
+# Run Playwright E2E tests (requires Node deps and a running-capable environment)
+test-e2e:
+    @echo "Running Playwright E2E tests..."
+    npm --prefix web/frontend run test:e2e
 
 
 # Generate resume PDF
 run: install
     @echo "Running main.py to generate resume PDF..."
     python main.py
+
+
+# Start frontend + backend dev servers (uses frontend's npm script which runs concurrently)
+dev:
+    @echo "Starting frontend + backend dev servers..."
+    cd web/frontend && npm run dev
+
 
 # Check CI/CD status
 ci-status:
